@@ -1,0 +1,365 @@
+/*注册页面css*/
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
+    box-sizing: border-box;
+}
+ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    -webkit-appearance: none;
+}
+html,
+body {
+    overflow-x: hidden;
+    font-family: PingFangSC-Regular, sans-serif;
+    -webkit-text-size-adjust: 100%;
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+}
+ul li{
+	list-style: none;
+	overflow: hidden;
+}
+h4{
+	padding-left: 2vw;
+}
+.DeviceStausePage{
+    width: 100%;
+    height: 100%;
+}
+/*index css */
+.canvasBox{
+    width: 100vw;
+    height: 75vh;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    background: url("../images/status_bg.png") no-repeat;
+    background-size: 100% auto;
+    background-position: 0 100%;
+}
+#canvas{
+	position: absolute;
+	margin: auto;
+	top: 0.7rem;
+	right: 0;
+    left: 0;
+}
+.canvasBox .wash{
+    width: 30vw;
+    height: 30vw;
+    position: absolute;
+    display: none;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 16vh;
+    z-index: 0;
+    opacity: 1;
+    -webkit-backface-visibility: hidden;
+}
+.canvasBox .wash img{ 
+    width: 100%;
+    animation:wash 1s linear infinite;
+    -webkit-animation:wash 1s linear infinite;
+}
+@keyframes wash{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(-360deg);
+    }
+}
+.status_text_father {
+    width: 100vw;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+	
+    top: 42vh;
+}
+.status_text_father .status_text{
+    width: 100%;
+    position: relative;
+    text-align: center;
+    color: #8A57F6;
+    font-size: 20px;
+}
+.btnList{
+	width: 100vw;
+	height: 10vh;
+	padding: 0;
+	margin: 0;
+}
+.btnList ul{
+	width: 100vw;
+	height: 10vh;
+	margin-top: 1vh;
+} 
+.btnList ul li{
+    list-style: none;
+    float: left;
+    width: 25vw;
+    text-align: center;
+}
+
+#footer {
+    width: 100vw;
+    height: 14vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btnList ul li a{
+    display: block;
+    color:#666666;
+    text-decoration: none;
+}
+.btnList ul li i{width: 25vw;height: 10vw; display:block; margin-bottom: 1vh;}
+.btnList ul li .i1{background:url("../images/wash_btnBg.png") no-repeat;background-position: 50% 30%;background-size: 36%; }
+.btnList ul li .i2{background:url("../images/filter_btnBg.png") no-repeat;background-position: 50% 30%; background-size: 17% 95%;}
+.btnList ul li .i3{background:url("../images/mall_btnBg.png") no-repeat; background-position: 50% 30%;background-size: 35%;}
+.btnList ul li .i4{background:url("../images/my_btnBg.png") no-repeat;background-position: 50% 30%; background-size: 34%;}
+.footerBtn{
+    width: 90%; 
+    height: 12vw; 
+    line-height: 12vw;
+    background: #2C2B4E; 
+    color: #fff;
+    border-radius: 2vw;
+    text-align: center;
+}
+.canvasBox .service{
+    width: 20vw;
+    height: 20vw;
+    position: absolute;
+    right: 20%;
+    top: 38%;
+    z-index: 10;
+}
+@keyframes spin {
+    from {
+        transform: rotate(-1turn);
+        -webkit-transform: rotate(-1turn);
+    }
+} 
+@keyframes spin-reverse {    
+    to {
+        transform: rotate(-1turn);
+        -webkit-transform: rotate(-1turn);
+    }
+}
+@-webkit-keyframes spin {
+    from {
+        transform: rotate(-1turn);
+        -webkit-transform: rotate(-1turn);
+    }
+} 
+@-webkit-keyframes spin-reverse {    
+    to {
+        transform: rotate(-1turn);
+        -webkit-transform: rotate(-1turn);
+    }
+}
+#lvxinReset{
+	width: 100%;
+}
+.avatar{
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+
+    animation: yuanX 1s infinite ease-in;
+}
+.avatar > img {
+    width: 80%;
+    opacity: 1;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    animation: yuanY 1s infinite ease-out;
+}
+
+@keyframes yuanX {
+    50% {
+        transform: translateX(10px);
+    }
+}
+@keyframes yuanY {
+    50% {
+        transform: translateY(-10px);
+    }
+}
+.addwater{ 
+    width: 60vw;
+    height: 60vw;
+    display: none;
+    background: url("../images/addwater.png") no-repeat;
+    background-position: left bottom;
+    background-size: 100%;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 10000;
+}
+.ring-out{
+    width: 60vw;
+    height: 60vw;
+    background: url("../images/ring-out.png") no-repeat;
+    background-position:left bottom;
+    background-size: 100%;
+    position: absolute;
+    display: none;
+    margin: auto;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+.ring-inside{
+    width: 60vw;
+    height: 60vw;
+    display: none;
+    background: url("../images/ring-inside.png") no-repeat;
+    background-position: left bottom;
+    background-size: 100%;
+    position: absolute;
+    margin: auto;
+    top:-.6rem;
+    right: 0;
+    left: 0;
+}
+.dripping1{
+    position: absolute;
+    width: 100%;
+    display: none;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    animation:dripping1 2.2s linear infinite;
+    -webkit-animation:dripping1 2.2s linear infinite;;
+}
+.dripping2{
+    position: absolute;
+    width: 4%;
+    display: none;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 20vh;
+    animation:dripping2 2s 2s linear infinite;
+    -webkit-animation:dripping2 2s 2s linear infinite;;
+}
+@keyframes dripping1{
+    0%{
+        opacity: 0;
+        top: 3vh;
+        width: 10%;
+    }
+    100%{
+        opacity:1;
+        top: 15vh;
+        width: 10%;
+    }
+    
+}
+@-webkit-keyframes dripping1{
+    0%{
+        top: 3vh;
+        width: 10%;
+        opacity:0;
+    }
+    100%{
+        opacity:1;
+        top: 15vh;
+        width: 10%;
+    }
+    
+}
+@keyframes dripping2{
+    0%{
+        top: 23vh;
+        width: 4%;
+        opacity:1;
+    }
+    100%{
+        top: 34vh;
+        width: 4%;
+        opacity:0.5;
+    }
+}
+@-webkit-keyframes dripping2{
+    0%{
+        top: 23vh;
+        width: 4%;
+        opacity:1;
+    }
+    100%{
+        top: 34vh;
+        width: 4%;
+        opacity:0.5;
+    }   
+}
+
+.canvasBox .service{
+    width: 20vw;
+    height: 20vw;
+    display: none;
+    position: absolute;
+    right: 6rem;
+    top: 9rem;
+    z-index: 10;
+}
+#waterDetial {
+    width: 100%;
+    position: absolute;
+    bottom: 3vh;
+    border-top: 1px solid rgba(190, 219, 240, 0.72);
+    border-bottom: 1px solid rgba(190, 219, 240, 0.72);
+    font-size: 18px;
+}
+#waterDetial>div {
+    display: flex;
+    padding: 4% 6%;
+}
+#waterDetial>div>span {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    color: #666;
+    white-space: nowrap;
+}
+#waterDetial>div>span>img {
+    height: 6vw;
+    margin-top: -2%;
+}
+.footerBtn {
+    position: relative;
+    box-shadow: 0 0 6px rgba(0,0,0,0.25);
+}
+.footerBtn>div {
+    width: 100%;
+    height: 13vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 2px solid #f0f0f0;
+    border-radius: 2vw;
+	font-size:20px;
+}
+#waterDetial>div .spanTow{
+    display: inline-block;
+    float: right;
+    text-align: right;
+}
+

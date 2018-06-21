@@ -1,0 +1,138 @@
+ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
+	appearance:none;
+	-moz-appearance:none;
+	-webkit-appearance:none;
+	-webkit-appearance: none;
+}
+body {
+	min-height: 400px;
+	overflow: hidden;
+}
+#infor {
+	width: 10.0rem;
+	height: 80vh;
+	min-height: 400px;
+	margin-bottom: 1.466667rem;
+	transform: scale(1);
+}
+
+#infor> form {
+	height: 100%;
+	transform: scale(1);
+}
+#container {
+	width: 8.933333rem;
+	height: 100%;
+	margin: 0.0rem 0.533333rem;
+	position: relative;
+	transform: scale(1);
+}
+
+#container h3 {
+	margin-top: 0.266667rem;
+	font-size: 0.453333rem;
+	line-height:0.666667rem;
+	padding-bottom: 0.133333rem;
+	font-weight: 700;
+}
+
+#char-list {
+	margin-bottom: 6.666667rem;
+}
+
+#char-list>div>div {
+	height: 0.933333rem;
+	width: 9.0rem;
+	line-height: 0.933333rem;
+	letter-spacing: 0.33rem;
+	border-bottom: 1px solid #ccc;
+	padding: 0.133333rem 0.0rem;
+	margin: 0.276667rem 0.0rem;
+	font-size: 0.373333rem;
+	display: flex;
+}
+
+#char-list .spac {
+	letter-spacing: 0.0rem;
+}
+#char-list>#addr>.spac{
+	display: block !important;
+	position: relative;
+}
+
+#char-list>#addr>.spac textarea {
+	width: 100%;
+	position: absolute;
+	padding: 8px;
+	top: 0;
+	left: 0;
+	margin-top: 1.2rem;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+#char-list i {
+	font-size: 0.74rem;
+	float: left;
+	height: 0.933333rem;
+	line-height: 0.933333rem;
+	padding-right: 0.133333rem;
+	
+}
+.spac-tel{
+	font-weight: 600;
+}
+
+#char-list div span{
+    display: inline-block;
+    font-size: 0.426667rem;
+    width: 28%;
+    color: #6A6A6A;
+    text-align: justify;
+}
+/*文字两端对齐*/
+.spac>span::after {
+	content: '';
+	display: inline-block;
+	padding-left: 100%;
+}
+#char-list div input {
+	display: inline-block;
+	border: none;
+	background: #fff;
+	height: 0.666667rem;
+	/*background: green;*/
+	width: 52%;
+	height:0.933333rem;
+	font-size: 0.426667rem;
+}
+
+.iconfont {
+	color: #039CE9;
+}
+.returnBtn .iconfont{
+	color: #fff;
+}
+#char-list {
+	margin-bottom: 30vh;
+}
+.savediv {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	position: fixed;
+	bottom: 8%;
+	left: 0;
+}
+#save {
+	width: 90%;
+	height: 1.333333rem;
+	position: relative;
+	font-size: 0.426667rem;
+	color: #fff;
+	left: 0;
+	border-radius: 7px;
+	background: #039CE9;
+	text-align: center;
+	border: none;
+}
+

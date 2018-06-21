@@ -1,0 +1,87 @@
+ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
+	appearance:none;
+	-moz-appearance:none;
+	-webkit-appearance:none;
+	-webkit-appearance: none;
+}
+#devices-all {
+	width: 10.0rem;
+	position: relative;
+}
+
+#devices-container {
+	width: 9.2rem;
+	margin: 0.4rem 0.4rem 0.0rem 0.4rem;
+}
+
+#devices-list {
+	width: 9.2rem;
+}
+
+#devices-list>h3 {
+	margin-bottom: 0.266667rem;
+	font-size: 0.373333rem;
+	line-height: 0.8rem;
+}
+
+
+
+#devices-list>ul>li {
+	display: inline-block;
+	width: 100%;
+	font-size: 0.373333rem;
+	border-bottom: 1px dashed #CCC;
+	margin-top: .4rem;
+	padding-bottom: .2rem;
+}
+
+#devices-list>ul> li p {
+	display: inline-block;
+	height: .7rem;
+	width: .7rem;
+	/*background: #039CE9;*/
+	border-radius:50%;
+	border: 1px solid #039CE9;
+	margin-right: 1rem;
+	position: relative;
+	top: .05rem;
+}
+#devices-list>ul> li p span{
+	width: .4rem;
+	height: .4rem;
+	position: absolute;
+	display: inline-block;
+	margin: auto;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: #039CE9;
+	border-radius: 50%;
+}
+
+#devices-add {
+	height: 1.466667rem;
+	width: 10.0rem;
+	background: #F1F1F1;
+	position: fixed;
+	bottom: 0.0rem;
+	line-height: 1.466667rem;
+}
+
+#devices-add>i {
+	float: left;
+	display: inline-block;
+	height: 1.466667rem;
+	font-size: 0.8rem;
+	margin-left: 0.666667rem;
+	margin-right: 0.466666rem;
+}
+
+#devices-add>p {
+	float: left;
+	height: 1.466667rem;
+	display: inline-block;
+	font-size: 0.373333rem;
+	line-height: 1.466667rem;
+}

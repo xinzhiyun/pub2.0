@@ -1,0 +1,446 @@
+	@charset "utf-8";
+/*重置样式开始*/
+html{color:#000;background:#fff;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}html
+*{outline:0;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}html,body{font-family:sans-serif}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{margin:0;padding:0}
+input,select,textarea{font-size:100%}table{border-collapse:collapse;border-spacing:0}fieldset,
+img{border:0}abbr,acronym{border:0;font-variant:normal}
+del{text-decoration:line-through}
+address,caption,cite,code,dfn,em,th,var{font-style:normal;font-weight:500;}
+ol,ul{list-style:none}
+caption,th{text-align:left}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:500}
+q:before,q:after{content:''}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}sub{bottom:-.25em}
+ins,a{text-decoration:none!important;color: #000;}
+a:link{text-decoration:none!important;}   /* 指正常的未被访问过的链接*/
+a:visited{text-decoration:none!important;} /*指已经访问过的链接*/
+a:hover{text-decoration:none!important;}/*指鼠标在链接*/
+a:active{text-decoration:none!important;}/* 指正在点的链接*/
+ul, li, dl, dt, dd, form, h1, h2, h3, h4, p, input, form {
+	appearance:none;
+	-moz-appearance:none;
+	-webkit-appearance:none;
+	-webkit-appearance: none; 
+} 
+.clearfix:after{content:"";height:0;line-height:0;display:block;visibility:hidden;clear:both}
+.clearfix{zoom:1;}/*为了兼容IE*/
+.clear{clear:both;}
+/*重置样式结束*/
+html,body {
+	height: 100vh;
+	overflow: hidden;
+} 
+.top{
+	width:10rem;
+	height:62vh;
+	position: relative;
+	padding-top: 5%;
+	background-size: 100% 100%;
+}
+
+.topcontent{
+	width:6.4rem;
+	height: 6.4rem;
+	margin: 0 auto;
+	background-color: #5AC8FF;
+	border-radius: 50%;
+	overflow: hidden;
+	position: relative;
+}
+
+.xuanhuan{
+	width:6.4rem;
+	height: 6.4rem;
+	border-radius:6.4rem;
+	overflow: hidden;
+	background: url("../images/yuan_02.png") no-repeat;
+	background-size: 100% 100%;
+	overflow: hidden;
+	position: absolute;
+	top:0;
+	left: 0;
+	z-index: 4;
+	
+}
+
+.bolang{
+	width:6.4rem;
+	height: 2.4rem;
+	position: absolute;
+	left:0;
+	bottom: 0;
+	background: url("../images/bolang_01.png");
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
+	-webkit-animation:bolang 6.5s linear infinite;
+	animation:bolang 6.5s linear infinite;
+}
+.bolang1{
+	width:6.4rem;
+	height: 2.4rem;
+	position: absolute;
+	left:-0vw;
+	bottom: 0;
+	background: url("../images/bolang_01.png");
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
+	-webkit-animation:bolang1 6.5s linear infinite;
+	animation:bolang1 6.5s linear infinite;
+}
+
+.containTxt{
+	width: 6.4rem;
+	height: 6.4rem;
+	/*border: 1px solid #F00;*/
+	z-index: 5;
+	margin: 0 auto;
+	position: absolute;
+	top: 0;
+	left:0;
+	text-align: center;
+}
+
+.dazi{
+	width: 6.5rem;
+	height:2.4rem;
+	font-size: 2.2rem;
+	text-align: center;
+	margin-top:5vh;
+	position: relative;
+	color: #004872;
+}
+.dazi>span{
+	display: inline-block;
+	/*position: absolute;*/
+	bottom: 0;
+	right: 0 !important;
+	font-size: 0.4rem;
+	color:#fff;
+}
+.queshui{
+	width: 6.4rem;
+	font-size: 0.4rem;
+	text-align: center;
+	position: relative;
+	margin-top: -.5vh;
+	color:#fff;
+}
+.dazi1{
+	width: 6.4rem;
+	font-size: 1rem;
+	margin: 0.4rem 0 0 0;
+	text-align: center;
+	position: relative;
+	color: #004872;
+}
+.dazi1>span{
+	display: inline-block;
+	position: absolute;
+	bottom: .3rem;
+	right:1.7rem;
+	font-size: 0.4rem;
+	color:#fff;
+}
+.queshui1{
+	width: 6.4rem;
+	font-size: 0.4rem;
+	text-align: center;
+	position: relative;
+	color:#fff;
+}
+
+.allStatus{
+	position:absolute;
+	bottom:15vh;
+	left:.5rem;
+}
+.allStatus>div{
+	display: none;
+	text-align: center;
+}
+.allStatus>div.left{
+	float: left;
+}
+.allStatus>div.right{
+	float: right;
+	z-index: 999;
+}
+
+.allStatus>div>p>i{
+	font-size: 1.6rem;
+	line-height: 0.05rem;
+	-webkit-animation:aImg3 3s linear infinite;
+	animation:aImg3 3s linear infinite;
+}
+.allStatus>.fullWaters>p>i{
+	font-size: 1.6rem;
+	line-height: 0.05rem;
+	animation: none;
+}
+.allStatus>div>span{
+	font-size: 0.45rem;
+}
+
+.shuibolang{
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 10rem;
+	height: 2rem;
+	position: absolute;
+	bottom: 0;
+	overflow: hidden;
+	/*padding-bottom: -5vw;*/
+	font-size: 0.4rem;
+	color:#fff;
+}
+.shuibolang1{
+	width: 10rem;
+	height: 2rem;
+	position: absolute;
+	left:0;
+	background: url("../images/bolang_05.png");
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
+	-webkit-animation:shuibolang1 6s linear infinite;
+	animation:shuibolang1 6s linear infinite;
+}
+.shuibolang2{
+	width: 10rem;
+	height: 2rem;
+	position: absolute;
+	left:-100vw;
+	background: url("../images/bolang_05.png");
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
+	-webkit-animation:shuibolang2 6s linear infinite;
+	animation:shuibolang2 6s linear infinite;
+}
+
+.shuibolang b{
+	margin-left: 0.1rem;
+	margin-right: 0.1rem;
+}
+
+.textLeft{
+	position: absolute;
+	top:0.8rem;
+	left:0.5rem;
+	z-index: 11;
+}
+
+.textRight{
+	position: absolute;
+	height: 2rem;
+	top:0.8rem;
+	right:0.5rem;
+	z-index: 11;
+}
+
+.bottom{    
+	height: 36vh;
+	position: relative;
+	/*background: #A8E2FF;*/
+}
+.bottom ul{
+	width: 10rem;
+	height: 48%;
+	display: flex;
+	align-items: center;
+	/*background: #A8E2FF;*/
+}
+.bottom ul li{
+	flex: 1;
+	display: block;
+	width: 33.33%;
+	/*height: 1rem;*/
+	float: left;
+	text-align: center;
+	/*margin-top: 0.7rem;*/
+}
+.bottom ul li:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.bottom ul li:nth-child(4),.bottom ul li:nth-child(5),.bottom ul li:nth-child(6){
+	margin-top: 1.4rem;
+}
+
+.bottom ul li a {
+	display: inline-block;
+}
+.bottom ul li p{
+	font-size: 1.1rem;
+}
+.bottom ul li span{
+	font-size:0.4rem;
+}
+
+/*底部图标颜色*/
+.icon-lvxin1{
+	color: #217D64;
+}
+.icon-kaiguan{
+	color: #E72534;
+}
+.icon-chongxi1{
+	color: #039CE9;
+}
+.icon-chongzhi1{
+	color: #D99241;
+}
+.icon-wode1{
+	color: #0A56A3;
+}
+.icon-chongzhi{
+	color: #217D64;
+}
+
+
+/*水的动画*/
+@-webkit-keyframes bolang{
+	0%{left:0;}
+	100%{left:64vw;}
+}
+@keyframes bolang{
+	0%{left:0;}
+	100%{left:64vw;}
+}
+/*水的动画*/
+@-webkit-keyframes bolang1{
+	0%{left:-64vw;}
+	100%{left:0;}
+}
+@keyframes bolang1{
+	0%{left:-64vw;}
+	100%{left:0;}
+}
+
+/*水的动画*/
+@-webkit-keyframes shuibolang1{
+	0%{left:0;}
+	100%{left:100vw;}
+}
+@keyframes shuibolang1{
+	0%{left:0;}
+	100%{left:100vw;}
+}
+/*水的动画*/
+@-webkit-keyframes shuibolang2{
+	0%{left:-100vw;}
+	100%{left:0;}
+}
+@keyframes shuibolang2{
+	0%{left:-100vw;}
+	100%{left:0;}
+}
+
+i.icon-zhishui,i.icon-shuiman{
+	color:#039CE9!important;
+}
+
+i.icon-chongxi{
+	color:#D98C34!important;
+}
+i.icon-jianxiu,i.icon-queshui{
+	color:#DF2426!important;
+}
+@-webkit-keyframes aImg3{
+	0%{opacity: 1;}
+	50%{opacity: 0;}
+	100%{opacity: 1;}
+}
+@keyframes aImg3{
+	0%{opacity: 1;}
+	50%{opacity: 0;}
+	100%{opacity: 1;}
+}
+
+html{
+	background-color: #A8E2FF;
+}
+
+.linkBox{
+	display: none !important;
+}
+.dazi {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+}
+.dazi>b,
+.dazi>span {
+	display: inline-block;
+	position: relative;
+	top: 0;
+	margin: 0 auto;
+}
+#puretdsVal {
+	position: relative;
+}
+#rawtdsVal>span {
+	position: absolute;
+	left: 102%;
+	bottom: 18%;
+	color: #fff;
+	font-size: .4rem;
+	font-weight: 400;
+}
+#puretdsVal>span {
+	position: absolute;
+	left: 105%;
+	bottom: 18%;
+	color: #fff;
+	font-size: .4rem;
+	font-weight: 400;
+}
+.icon-leaking {
+	color: red;
+}
+.flow_day {
+	width: 100vw;
+	display: block;
+}
+.flow_day>div {
+	width: 33.33%;
+	display: inline-block;
+}
+.flow_day>div:nth-of-type(2) {
+	position: absolute;
+    height: 2rem;
+    top: .8rem;
+    left: 36%;
+    z-index: 11;
+}
+.flow_day>div:nth-of-type(3) {
+	right: 0;
+}
+.flow_day>div>p {
+	text-align: center;
+}
+
+@media screen and (max-height: 520px) {
+
+	.top{
+		margin-top: -0.2rem;
+	}
+
+	.bottom ul li p{
+		font-size: 0.8rem;
+		
+	}
+
+	.bottom ul li:nth-child(4),.bottom ul li:nth-child(5),.bottom ul li:nth-child(6){
+		margin-top: 0.8rem;
+	}
+	.bottom ul li{
+		margin-top: 0.4rem;
+	}
+
+	.bottom ul li span{
+		font-size:0.35rem;
+	}
+}
