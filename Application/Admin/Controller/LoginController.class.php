@@ -52,7 +52,11 @@ class LoginController extends Controller
             $_SESSION['DB_CONFIG']['DB_PORT']   = $res['db_port'];
             $_SESSION['DB_CONFIG']['DB_NAME']   = $res['db_name'];
             $_SESSION['admintitle'] = $res['admintitle'];
+        }else{
+            unset($_SESSION['admintitle']);
+            unset($_SESSION['DB_CONFIG']);
         }
+        C('USER_AUTH_ID');
         $this->display('Login/login');exit;
     }
 
