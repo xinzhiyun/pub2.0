@@ -11,6 +11,7 @@ use Think\Auth;
 
 class CommonController extends Controller 
 {
+
 	/**
      * 初始化
      * @author 潘宏钢 <619328391@qq.com>

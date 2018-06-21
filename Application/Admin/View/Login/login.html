@@ -178,7 +178,8 @@
                     <span class="span2"></span><input type="password" name="password" id="inputPassword" placeholder="密码">
                 </div>
                 <div class="control-group" style="box-shadow:none;border:0">
-                        <span class="inputBox"><input type="text" name="code" class="verifyBox" placeholder="验证码"></span><img src="__URL__/yzm" onclick="this.src='__URL__/yzm?id=' + Math.random()">
+                        <span class="inputBox"><input type="text" name="code" class="verifyBox" placeholder="验证码"></span><img src="__URL__/yzm?id={{:time()}}"
+                                                                                                                              onclick="this.src='__URL__/yzm?id=' + Math.random()">
                 </div> 
                 <div>  
                     <button type="submit" class="loginbtn">登&nbsp;&nbsp;录</button>

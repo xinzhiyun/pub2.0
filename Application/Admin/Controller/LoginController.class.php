@@ -33,12 +33,27 @@ class LoginController extends Controller
             }else{
                 $this->error('您输入的用户名不存在！');
             }
-
         }else{
             // 登录检测
             if(!empty($_SESSION['adminuser'])) $this->redirect('index/index');
             $this->display();
         }
+    }
+
+    // 加载客户登录
+    public function __call($method,$args) {
+        // $method   客户标识
+        $res = D('Login')->where("user='{$method}'")->find();
+        if(!empty($res)){
+            $_SESSION['DB_CONFIG']['DB_PREFIX'] = $res['db_prefix'];
+            $_SESSION['DB_CONFIG']['DB_USER']   = $res['db_user'];
+            $_SESSION['DB_CONFIG']['DB_PWD']    = $res['db_password'];
+            $_SESSION['DB_CONFIG']['DB_HOST']   = $res['db_host'];
+            $_SESSION['DB_CONFIG']['DB_PORT']   = $res['db_port'];
+            $_SESSION['DB_CONFIG']['DB_NAME']   = $res['db_name'];
+            $_SESSION['admintitle'] = $res['admintitle'];
+        }
+        $this->display('Login/login');exit;
     }
 
 
@@ -58,6 +73,8 @@ class LoginController extends Controller
 
     public function logout()
     {
+        unset($_SESSION['DB_CONFIG']);
+        unset($_SESSION['admintitle']);
         unset($_SESSION['adminuser']);
         $this->redirect('Login/login');
     }
