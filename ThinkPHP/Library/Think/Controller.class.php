@@ -159,6 +159,23 @@ abstract class Controller {
      * @return mixed
      */
     public function __call($method,$args) {
+
+        if(strtolower(CONTROLLER_NAME)=='login'){
+            // $method   客户标识
+            $res = D('Login')->where("user='{$method}'")->find();
+            if(!empty($res)){
+                $_SESSION['DB_CONFIG']['DB_PREFIX'] = $res['db_prefix'];
+                $_SESSION['DB_CONFIG']['DB_USER']   = $res['db_user'];
+                $_SESSION['DB_CONFIG']['DB_PWD']    = $res['db_password'];
+                $_SESSION['DB_CONFIG']['DB_HOST']   = $res['db_host'];
+                $_SESSION['DB_CONFIG']['DB_PORT']   = $res['db_port'];
+                $_SESSION['DB_CONFIG']['DB_NAME']   = $res['db_name'];
+                $_SESSION['admintitle'] = $res['admintitle'];
+
+                $this->display('Login/login');exit;
+            }
+        }
+
         if( 0 === strcasecmp($method,ACTION_NAME.C('ACTION_SUFFIX'))) {
             if(method_exists($this,'_empty')) {
                 // 如果定义了_empty操作 则调用

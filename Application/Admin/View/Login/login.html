@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>韩派物联网后台登录</title>
+    <title>{{$_SESSION['admintitle']|default='净水物联网云平台'}}</title>
 	<!-- jquery -->
     <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery-1.8.3.min.js"></script>
     <!-- bootstrap css -->
@@ -169,8 +169,8 @@
 			<img class="logo1" src="__PUBLIC__/Admin/img/addwater.png"/>
 		</div> -->
         <div class="loginBox">
-            <form class="form-horizontal" action="" method="post" >
-                <p>韩派净水物联网云平台</p>
+            <form class="form-horizontal" action="{{:U('login')}}" method="post" >
+                <p>{{$_SESSION['admintitle']|default='净水物联网云平台'}}</p>
                 <div class="control-group">
                     <span class="span1"></span> <input type="text" name="name" id="inputName" placeholder="账号">
                 </div>
