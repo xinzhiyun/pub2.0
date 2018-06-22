@@ -56,7 +56,7 @@ class LoginController extends Controller
             unset($_SESSION['admintitle']);
             unset($_SESSION['DB_CONFIG']);
         }
-        C('USER_AUTH_ID');
+        
         $this->display('Login/login');exit;
     }
 
