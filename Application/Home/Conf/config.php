@@ -12,12 +12,12 @@ return array(
  //  	'notify_url'	=> 'http://pub.dianqiukj.com/index.php/Home/PaymentSystem/notify.html',
 
 
-    'TOKEN'     => 'penalty',
-    'APPID'       => 'wx27fe92c4c77f7df6',
-    'APPSECRET'   => 'bfe715cace634d85e6b5e17a93843de6',
-    'MCHID'       => '1310058501',
-    'KEY'         => '36d04a9d74392c727b1a9bf97a7bcbac',
-    'notify_url'  => 'http://hanpai2.dianqiukj.com/index.php/Home/PaymentSystem/notify.html',
+//    'TOKEN'     => 'penalty',
+//    'APPID'       => 'wx27fe92c4c77f7df6',
+//    'APPSECRET'   => 'bfe715cace634d85e6b5e17a93843de6',
+//    'MCHID'       => '1310058501',
+//    'KEY'         => '36d04a9d74392c727b1a9bf97a7bcbac',
+//    'notify_url'  => 'http://hanpai2.dianqiukj.com/index.php/Home/PaymentSystem/notify.html',
   	// 开启layout模板布局
   	'LAYOUT_ON'=>true,
 	'LAYOUT_NAME'=>'Layout/layout1',

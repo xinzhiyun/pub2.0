@@ -55,7 +55,7 @@ class WechatCallbackapiTest
 	private function checkSignature()
 	{
         // you must define TOKEN by yourself
-        if (!C('TOKEN')) {
+        if (empty($_SESSION['WX_CONFIG']['TOKEN'])) {
             throw new Exception('TOKEN is not defined!');
         }
         
@@ -63,7 +63,7 @@ class WechatCallbackapiTest
         $timestamp = $_GET["timestamp"];
         $nonce = $_GET["nonce"];
         		
-		$token = C('TOKEN');
+		$token = $_SESSION['WX_CONFIG']['TOKEN'];
 		$tmpArr = array($token, $timestamp, $nonce);
         // use SORT_STRING rule
 		sort($tmpArr, SORT_STRING);

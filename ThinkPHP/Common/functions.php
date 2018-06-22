@@ -13,6 +13,7 @@
  * Think 系统函数库
  */
 
+
 /**
  * 获取和设置配置参数 支持批量定义
  * @param string|array $name 配置变量
@@ -20,7 +21,8 @@
  * @param mixed $default 默认值
  * @return mixed
  */
-function C($name=null, $value=null,$default=null) {
+function C($name = null, $value = null, $default = null)
+{
     static $_config = array();
     // 无参数时获取所有
     if (empty($name)) {
@@ -30,39 +32,36 @@ function C($name=null, $value=null,$default=null) {
     if (is_string($name)) {
         if (!strpos($name, '.')) {
             $name = strtoupper($name);
-            if (is_null($value))
-                if( $name == 'DB_PREFIX' ||
-                    $name == 'DB_USER' ||
-                    $name == 'DB_PWD' ||
-                    $name == 'DB_HOST' ||
-                    $name == 'DB_PORT' ||
-                    $name == 'DB_NAME'
-                ){
+            if (is_null($value)) {
+                if($name=='DB_PREFIX'||$name=='DB_USER'||$name=='DB_PWD'||$name=='DB_HOST'||$name=='DB_PORT'||$name=='DB_NAME') {
                     if(!empty($_SESSION['DB_CONFIG'][$name])){
                         return $_SESSION['DB_CONFIG'][$name];
                     }
                 }
-
-
                 return isset($_config[$name]) ? $_config[$name] : $default;
+            }
+
             $_config[$name] = $value;
             return null;
         }
         // 二维数组设置和获取支持
-        $name = explode('.', $name);
-        $name[0]   =  strtoupper($name[0]);
-        if (is_null($value))
+        $name    = explode('.', $name);
+        $name[0] = strtoupper($name[0]);
+        if (is_null($value)) {
             return isset($_config[$name[0]][$name[1]]) ? $_config[$name[0]][$name[1]] : $default;
+        }
+
         $_config[$name[0]][$name[1]] = $value;
         return null;
     }
     // 批量设置
-    if (is_array($name)){
-        $_config = array_merge($_config, array_change_key_case($name,CASE_UPPER));
+    if (is_array($name)) {
+        $_config = array_merge($_config, array_change_key_case($name, CASE_UPPER));
         return null;
     }
     return null; // 避免非法参数
 }
+
 
 /**
  * 加载配置文件 支持格式转换 仅支持一级配置

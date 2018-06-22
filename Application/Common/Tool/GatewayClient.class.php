@@ -24,7 +24,7 @@ class GatewayClient
         '11'=>['ctrolCmd'=>7,'DeviceID'=>'','Pram'=>0], //滤芯模式修改  'Pram' 0 时长 1 流量 2 时长和流量
     ];
 
-    const HOST = '192.168.0.113';
+    const HOST = '120.79.230.245';  // 远端服务器
     const PORT = '9980';
 
     /**

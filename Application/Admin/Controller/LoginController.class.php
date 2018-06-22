@@ -6,6 +6,7 @@
  * Time: 9:28
  */
 namespace Admin\Controller;
+use Common\Tool\Communal;
 use Think\Controller;
 
 class LoginController extends Controller
@@ -45,18 +46,13 @@ class LoginController extends Controller
         // $method   客户标识
         $res = D('Login')->where("user='{$method}'")->find();
         if(!empty($res)){
-            $_SESSION['DB_CONFIG']['DB_PREFIX'] = $res['db_prefix'];
-            $_SESSION['DB_CONFIG']['DB_USER']   = $res['db_user'];
-            $_SESSION['DB_CONFIG']['DB_PWD']    = $res['db_password'];
-            $_SESSION['DB_CONFIG']['DB_HOST']   = $res['db_host'];
-            $_SESSION['DB_CONFIG']['DB_PORT']   = $res['db_port'];
-            $_SESSION['DB_CONFIG']['DB_NAME']   = $res['db_name'];
+            Communal::setDB($res);
+
             $_SESSION['admintitle'] = $res['admintitle'];
         }else{
             unset($_SESSION['admintitle']);
             unset($_SESSION['DB_CONFIG']);
         }
-        
         $this->display('Login/login');exit;
     }
 

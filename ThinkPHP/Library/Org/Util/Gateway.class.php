@@ -29,11 +29,11 @@ class Gateway
     protected static $businessWorker = null;
 
     /**
-     * 注册中心地址
+     * 注册中心地址      120.79.230.245
      *
      * @var string
      */
-    public static $registerAddress = '127.0.0.1:9504';
+    public static $registerAddress = '127.0.0.1:9604';
 
     /**
      * 秘钥

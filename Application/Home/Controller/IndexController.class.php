@@ -1,6 +1,6 @@
 <?php
 namespace Home\Controller;
-use Common\Tool\Common;
+use Common\Tool\Communal;
 use Common\Tool\GatewayClient;
 use Think\Controller;
 class IndexController extends CommonController 
@@ -100,7 +100,8 @@ class IndexController extends CommonController
                 E('成功',40010);
             }
         } catch (\Exception $e) {
-            Common::toJson($e);
+
+            Communal::toJson($e);
         }
     }
 
@@ -124,16 +125,27 @@ class IndexController extends CommonController
     {
         try {
             $post = I('post.');
+            if (empty($post['mode']) || empty($post['deviceID']) ) {
+                E('数据不完整', 40001);
+            }
 
-            // 做设备验证
-            $deviceID = '1231212312312';
+           switch ($post['mode']){
+               case '5':
+                   break;
+               case '8':
+                   break;
+               case '9':
+                   break;
+               case '10':
+                   break;
+               case '11':
+                   break;
+           }
 
-            //做数据格式验证
-            $mode = 8;
             $data = ['mode'=>2,'val'=>0];
             
             // 发送
-            $res = GatewayClient::action($mode, $deviceID, $data);
+            $res = GatewayClient::action($post['mode'], $post['deviceID'], $data);
 
             if($res){
                 E('成功',200);
