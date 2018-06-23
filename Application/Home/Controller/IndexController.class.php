@@ -9,7 +9,6 @@ class IndexController extends CommonController
     {
     	$userInfo = $_SESSION['homeuser'];
 
-
     	if($userInfo){
 	        // 获取用户当前设备
 	        $did = $userInfo['did'];
@@ -23,7 +22,7 @@ class IndexController extends CommonController
 	        	$deviceInfo = M('Devices')
 	        	->where('pub_devices.id='.$did)
 	        	->join('pub_devices_statu ON pub_devices_statu.DeviceID=pub_devices.device_code')
-	        	->field('RawTDS,PureTDS,ReFlow,SumFlow')
+	        	->field('RawTDS,PureTDS,ReFlow,SumFlow,device_code')
 	        	->find();
                 
                 if(empty($deviceInfo)){ $this->redirect('/Home/Devices/manage'); }
@@ -45,6 +44,7 @@ class IndexController extends CommonController
                     'status' => json_encode($status),
                     'deviceInfo' => json_encode($deviceInfo),
                 );
+
 
                 // 分配数据到模板
                 $this->assign($assign);
@@ -153,7 +153,7 @@ class IndexController extends CommonController
                 E('成功',40010);
             }
         } catch (\Exception $e) {
-            Common::toJson($e);
+            Communal::toJson($e);
         }
     }
     public function indexWebsocketNew()

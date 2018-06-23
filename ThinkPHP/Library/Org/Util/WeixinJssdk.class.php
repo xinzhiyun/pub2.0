@@ -20,10 +20,15 @@ class WeixinJssdk
    * 获取地址：https://mp.weixin.qq.com/advanced/advanced?action=dev&t=advanced/dev&token=2005451881&lang=zh_CN
    * @var string
    */
-  public $APPID     = 'wx27fe92c4c77f7df6';
-  public $APPSECRET = 'bfe715cace634d85e6b5e17a93843de6';
-  public $MCHID     = '1310058501';
-  public $KEY       = '36d04a9d74392c727b1a9bf97a7bcbac';
+//  public $APPID     = 'wx27fe92c4c77f7df6';
+//  public $APPSECRET = 'bfe715cace634d85e6b5e17a93843de6';
+//  public $MCHID     = '1310058501';
+//  public $KEY       = '36d04a9d74392c727b1a9bf97a7bcbac';
+
+  public $APPID;
+  public $APPSECRET;
+  public $MCHID;
+  public $KEY;
 
   //=======【证书路径设置】=====================================
   /**
@@ -166,13 +171,14 @@ class WeixinJssdk
   public function get_php_file($filename) 
   {
     //show(trim(substr(file_get_contents(dirname(__FILE__).'/weixin/'.$filename), 15)));die;
-    return trim(substr(file_get_contents(dirname(__FILE__).'/weixin/'.$filename), 15));
+
+    return trim(substr(file_get_contents(dirname(__FILE__).'/weixin/'.$_SESSION['WX_CONFIG']['APPID'].$filename), 15));
   }
   
   // 写入文的方法
   public function set_php_file($filename, $content) 
   {
-    $fp = fopen(dirname(__FILE__).'/weixin/'.$filename, "w");
+    $fp = fopen(dirname(__FILE__).'/weixin/'.$_SESSION['WX_CONFIG']['APPID'].$filename, "w");
     fwrite($fp, "<?php exit();?>" . $content);
     fclose($fp);
   }

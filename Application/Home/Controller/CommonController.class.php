@@ -1,5 +1,7 @@
 <?php
 namespace Home\Controller;
+use Common\Tool\Communal;
+use Common\Tool\WeiXin;
 use Think\Controller;
 use \Org\Util\WeixinJssdk;
 use Home\Controller\WechatController;
@@ -11,21 +13,34 @@ use Home\Controller\WechatController;
 
 class CommonController extends Controller 
 {
+    public function __construct()
+    {
+        if(!empty($_GET['user_sign'])){
+            $conf = D('Admin/Login')->where("id='{$_GET['user_sign']}'")->find();
+            if(!empty($conf)){
+                Communal::setDB($conf);
+                Communal::setWX($conf);
+            }else{
+                echo 'ERROR';
+            }
+        }
+        parent::__construct();
+    }
 	/**
      * 初始化
      * @author 吴智彬 <519002008@qq.com>
      */
     public function _initialize()
-    {	
-
+    {
         // 获取用户信息写入缓存
         if(empty($_SESSION['homeuser'])){
-            // 实例化微信JSSDK对象
-//            $weixin      = new WeixinJssdk;
-//            // 获取用户open_id
-//           $openId      = $weixin->GetOpenid();
-//           $openId_ifno = $weixin->getSignPackage();
-              $openId   = 'oXwY4t_vkTgtlD0CBTZ-vTbIMWHs';
+
+            if(C('wx_debug')){
+                $openId   = 'oXwY4t_vkTgtlD0CBTZ-vTbIMWHs';
+            }else{
+                $openId = WeiXin::GetOpenid();
+                $openId_ifno = WeiXin::getSignPackage();
+            }
             $weixinInfo = [$openId,$openId_ifno];
             session('weixin',$weixinInfo);
             // 查询用户信息

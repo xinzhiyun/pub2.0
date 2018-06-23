@@ -100,55 +100,6 @@ function onlyOrderId(){
 }
 
 
-/**
- *  [数组中枚举数值替换]
- * @param array $data   要替换的数组
- * @param array $replaceData    替换的内容
- * @return array
- * @author yi
- * @example
- *      $data = array(
- *          '0' => array('name'=>'张三','age'=>'18','sex'=>0),
- *          '1' => array('name'=>'李四','age'=>'28','sex'=>1),
- *          '2' => array('name'=>'王五','age'=>'28','sex'=>2),
- *      );
- *      $replaceData = array(
- *          'sex' => array(
- *              '0' => '女',
- *              '1' => '男',
- *              '2' => '保密'
- *          ),
- *          ...
- *      );
- */
-function replaceStrInData($data,$replaceData)
-{
-    foreach ($data as $key=>$value) {
-        foreach ($replaceData as $k=>$v) {
-            foreach ($v as $c=>$val) {
-                foreach ($value as $i=>$item) {
-                    if ($i==$k&&$item==$c) {
-                        $data[$key][$k] = $val;
-                    }
-                }
-            }
-        }
-    }
-
-    return $data;
-}
-
-
-function ss(&$data,$arr){
-    array_walk($data,function(&$v,$k,$arr){
-        foreach ($arr as $key=> $val) {
-            if(array_key_exists($key,$v)){
-                $v[$key]=$val[$v[$key]];
-            }
-        }
-    },$arr);
-};
-
 
 if(!function_exists('replace_value')){
     /**
@@ -244,7 +195,17 @@ function replace_array_value($data, array $replace, $suffix="")
 
 
 
-
+/**
+ * 将xml转为array
+ * @param  string $xml xml字符串
+ * @return array       转换得到的数组
+ */
+function xmltoArray($xml){
+    //禁止引用外部xml实体
+    libxml_disable_entity_loader(true);
+    $result= json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
+    return $result;
+}
 
 
 
