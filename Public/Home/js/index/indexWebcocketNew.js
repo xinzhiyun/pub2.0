@@ -199,11 +199,6 @@ var home = new Vue({
 		sendMSG: function(mode){
 			// mode: 1   //开机	 2关机  3冲洗  4取消冲洗  5复位滤芯  "Pram":[1,2] 滤芯级数
 			console.log('mode: ',mode);
-			if(mode == 3 && home.switchText == 0){
-				// 关机状态不允许冲洗
-				layuiHint('关机状态不允许冲洗');
-				return
-			}
 			// 发送数据（websocket发送）
 			// sendmsg(mode);
 			var option = {
@@ -221,7 +216,7 @@ var home = new Vue({
 				},
 				error: function(err){
 					console.log('err: ',err);
-					noticeFn({text: '系统出错，请稍后再试'});
+					alert('系统出错，请稍后再试');
 				}
 			}
 			if(mode == 5){
