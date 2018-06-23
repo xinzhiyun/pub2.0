@@ -132,8 +132,12 @@
 			</div>
 			<ul class="clearfix">
 				<li><a href="{{:U('Home/Index/filter')}}"><p class="iconfont icon-lvxin1"></p><span>滤芯</span></a></li>
-				<li @click='sendMSG(switchText+1)'>
-					<a href="javascript:;" class="clickBtn"><p class="iconfont icon-kaiguan"></p><span class="switchText" v-text='switchText == 0 ? "开机" : "关机"'>开机</span></a>
+				<li @click='sendMSG(switchText == 0 || dataList.DeviceStause == 6 || dataList.DeviceStause == 7 ? 1 : 2)'>
+					<a href="javascript:;" class="clickBtn">
+						<p class="iconfont icon-kaiguan"></p>
+						<span class="switchText" 
+						v-text='switchText == 0 || dataList.DeviceStause == 6 || dataList.DeviceStause == 7 ? "开机" : "关机"'>开机</span>
+					</a>
 				</li>
 				<li @click='sendMSG(3)'>
 					<a href="javascript:;" class="washBtn"><p class="iconfont icon-chongxi1"></p><span class="washText">冲洗</span></a>
@@ -149,6 +153,7 @@
 	<script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/Home/js/flexible.js"></script>
 	<script type="text/javascript" src="__PUBLIC__/Admin/layui/layui.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/Admin/layui/layer.js"></script>
 	<link rel="stylesheet" href="__PUBLIC__/Admin/layui/css/layui.css" />
 	<!-- 微信JSSDK -->
 	<script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
@@ -218,13 +223,13 @@
 				// str: 数据类型（接收，关闭， 错误），
 				// 在websocket.js中给出，不需要传
 				console.log(str, res);
+				home.deviceId = 868575028072504;
 				if(JSON.parse(res)['client_id']){
 					var client_id = JSON.parse(res)['client_id'];
 					// 绑定websocket链接
 					bindWebsocket({
 						client_id: client_id,
-						// deviceID: home.deviceId
-						deviceID: 112233445566778,
+						deviceID: home.deviceId,
 						token: ''
 					})
 					return

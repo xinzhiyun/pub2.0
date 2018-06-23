@@ -197,22 +197,20 @@ var home = new Vue({
 			})
 		},
 		sendMSG: function(mode){
-			console.log('senddata: ',mode);
-			if(mode == 3 && switchText == 0){
+			// mode: 1   //开机	 2关机  3冲洗  4取消冲洗  5复位滤芯  "Pram":[1,2] 滤芯级数
+			console.log('mode: ',mode);
+			if(mode == 3 && home.switchText == 0){
 				// 关机状态不允许冲洗
+				layuiHint('关机状态不允许冲洗');
+				return
 			}
 			// 发送数据（websocket发送）
 			// sendmsg(mode);
-			// 调用后端接口
-			$.ajax({
+			var option = {
 				url: 'http://devicecloud.dianqiukj.com/api/device/deviceAction',
 				type: 'post',
 				dataType: 'jsonp',
 				jsonp: 'jsoncallback',
-				data: {
-					mode: mode,
-					deviceID: home.deviceID
-				},
 				success: function(res){
 					console.log('res: ',res);
 					if(res.status == 200){
@@ -225,7 +223,22 @@ var home = new Vue({
 					console.log('err: ',err);
 					noticeFn({text: '系统出错，请稍后再试'});
 				}
-			})
+			}
+			if(mode == 5){
+				// 复位
+				option['data'] = {
+					mode: mode,
+					deviceID: home.deviceId,
+					data: ''// 几级滤芯（多个的时候用下划线分割‘_’）
+				}
+			}else{
+				option['data'] = {
+					mode: mode,
+					deviceID: home.deviceId
+				}
+			}
+			// 调用后端接口
+			$.ajax(option);
 		},
 		// 分享
 		shareFn: function(){
