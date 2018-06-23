@@ -25,23 +25,7 @@ var home = new Vue({
 			    "PackType": "login",
 			    "Vison": 0,
 			},
-            bjson: {
-                "DeviceID": 'deviceId',
-                "PackType": "Select",
-                "Vison": 0,
-            },
-			statusIconName: '',								// 状态图标
-			statusIconClass: {
-				'0': 'iconfont icon-makewater glint',		// 制水
-				'1': 'iconfont icon-washing glint',			// 冲洗
-				'2': 'iconfont icon-fullwater',				// 水满
-				'3': 'iconfont icon-lacking glint',			// 缺水
-				'4': 'iconfont icon-leaking glint',			// 漏水
-				'5': 'iconfont icon-check glint',			// 检修
-				'6': 'iconfont icon-leaking',			// 已关机
-				'7': 'iconfont icon-leaking',			// 已欠费
-				'8': 'iconfont icon-leaking'			// 已离线
-			},
+			switchText: '',			// 开关机状态
 			reday: '--',			//剩余天数
 			usedday: '--',			//已用天数
 			reflow: '--',			//剩余流量
@@ -212,19 +196,23 @@ var home = new Vue({
 				}
 			})
 		},
-		sendMSG: function(data){
-			console.log('senddata: ',data);
-			// 发送json格式数据
-			if(Object.prototype.toString.call(data) === "[object Object]"){
-				data = JSON.stringify(data);
+		sendMSG: function(mode){
+			console.log('senddata: ',mode);
+			if(mode == 3 && switchText == 0){
+				// 关机状态不允许冲洗
 			}
 			// 发送数据（websocket发送）
-			// sendmsg(data);
+			// sendmsg(mode);
 			// 调用后端接口
 			$.ajax({
-				url: getURL('Home', 'Index/control'),
+				url: 'http://devicecloud.dianqiukj.com/api/device/deviceAction',
 				type: 'post',
-				data: data,
+				dataType: 'jsonp',
+				jsonp: 'jsoncallback',
+				data: {
+					mode: mode,
+					deviceID: home.deviceID
+				},
 				success: function(res){
 					console.log('res: ',res);
 					if(res.status == 200){

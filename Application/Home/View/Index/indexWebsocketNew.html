@@ -132,8 +132,12 @@
 			</div>
 			<ul class="clearfix">
 				<li><a href="{{:U('Home/Index/filter')}}"><p class="iconfont icon-lvxin1"></p><span>滤芯</span></a></li>
-				<li><a href="javascript:;" class="clickBtn"><p class="iconfont icon-kaiguan"></p><span class="switchText">开机</span></a></li>
-				<li><a href="javascript:;" class="washBtn"><p class="iconfont icon-chongxi1"></p><span class="washText">冲洗</span></a></li>
+				<li @click='sendMSG(switchText+1)'>
+					<a href="javascript:;" class="clickBtn"><p class="iconfont icon-kaiguan"></p><span class="switchText" v-text='switchText == 0 ? "开机" : "关机"'>开机</span></a>
+				</li>
+				<li @click='sendMSG(3)'>
+					<a href="javascript:;" class="washBtn"><p class="iconfont icon-chongxi1"></p><span class="washText">冲洗</span></a>
+				</li>
 			</ul>
 			<ul class="clearfix">
 				<li><a class="charge" href="{{:U('Home/Shop/index')}}" class=""><p class="iconfont icon-chongzhi1"></p><span>充值</span></a></li>
@@ -179,10 +183,9 @@
 				'onMenuShareQZone'
 		    ]
 		});	
-		home.deviceId = '{{$deviceInfo.device_code}}';
+		var deviceInfo = JSON.parse('{{$deviceInfo}}');
+		home.deviceId = deviceInfo.device_code;
 		console.log('deviceId: ',home.deviceId);
-		var colorint; 	// 颜色滚动计时器
-		var pumpSpend = 260/60000;	//泵流速
 
 		// 记录是从充值进入商城还是点击商城进入商城
 		$(".mall").click(function(){
@@ -207,9 +210,9 @@
 				// 发送登录包
 				//home.deviceId;	页面加载时候需要后台提供
 				home.ajson.DeviceID = home.deviceId;
-				home.bjson.DeviceID = home.deviceId;
 				home.ajson.PackType = "login";
-				home.sendMSG(home.ajson);
+				// home.sendMSG(home.ajson);
+				sendmsg(home.ajson);
 
 			}, function (str, res) {
 				// str: 数据类型（接收，关闭， 错误），
@@ -220,7 +223,9 @@
 					// 绑定websocket链接
 					bindWebsocket({
 						client_id: client_id,
-						deviceID: home.deviceId
+						// deviceID: home.deviceId
+						deviceID: 112233445566778,
+						token: ''
 					})
 					return
 				}
@@ -232,9 +237,7 @@
 					console.log('home.dataList: ',home.dataList);
 					
 					// 水机状态图标
-					home.statusIconName = home.statusIconClass[home.dataList.DeviceStause];
-					// 水机状态描述
-					home.statusText = home.dstauseList[home.dataList.DeviceStause];
+					home.statusText = home.dataList.DeviceStause;
 
 					switch (home.dataList.PackType) {
 						case 'Select': 	//查询包
@@ -246,6 +249,7 @@
 							home.reday = home.dataList.Reday;		// 剩余天数
 							home.tdsPure = home.dataList.PureTDS;	// 纯水值
 							home.tdsRaw = home.dataList.RawTDS;		// 原水值
+							home.switchText = home.dataList.DeviceStause;	// 开关机状态
 							break;
 
 						case 'SetData': //设置包
@@ -267,43 +271,47 @@
 				} else if (str == 'error') {
 					noticeFn({text: '数据连接断开'});
 
+				} else{
+					wsFun(wsurl);
 				}
 			});
 			/*
 				以下是模拟数据
 			 */
-			home.leasingmode = 3;		// 租赁模式
-			home.filtermode = 2;		// 滤芯模式
-			home.reday = 66;			// 剩余天数
-			home.usedday = 101;			// 已用天数
-			home.reflow = 99;			// 剩余流量
-			home.usedflow = 106;		// 已用流量
-			// home 是vue实例
-			home.filterList = [
-				{fNum:'0',fName:'RO膜',fDesc:'RO膜能够有效去除水中钙、镁、细菌、有机物、无机物、金属离子和放射性物质等，经过该装置净化出的水晶莹清澈、甜美甘醇',allLife:'100',allFlow:'100',reday:'80',reflow:'60'},
-				{fNum:'1',fName:'PP棉',fDesc:'RO膜能够有效去除水中钙、镁、细菌、有机物、无机物、金属离子和放射性物质等，经过该装置净化出的水晶莹清澈、甜美甘醇',allLife:'100',allFlow:'100',reday:'50',reflow:'80'},
-				{fNum:'2',fName:'滤芯1',fDesc:'RO膜能够有效去除水中钙、镁、细菌、有机物、无机物、金属离子和放射性物质等，经过该装置净化出的水晶莹清澈、甜美甘醇',allLife:'100',allFlow:'100',reday:'70',reflow:'20'},
-				{fNum:'3',fName:'滤芯2',fDesc:'RO膜能够有效去除水中钙、镁、细菌、有机物、无机物、金属离子和放射性物质等，经过该装置净化出的水晶莹清澈、甜美甘醇',allLife:'100',allFlow:'100',reday:'40',reflow:'70'},
-				{fNum:'4',fName:'PP棉',fDesc:'RO膜能够有效去除水中钙、镁、细菌、有机物、无机物、金属离子和放射性物质等，经过该装置净化出的水晶莹清澈、甜美甘醇',allLife:'100',allFlow:'100',reday:'66',reflow:'90'}
-			];
+			// home.leasingmode = 3;		// 租赁模式
+			// home.filtermode = 2;		// 滤芯模式
+			// home.reday = 66;			// 剩余天数
+			// home.usedday = 101;			// 已用天数
+			// home.reflow = 99;			// 剩余流量
+			// home.usedflow = 106;		// 已用流量
+			// // home 是vue实例
+			// home.filterList = [
+			// 	{fNum:'0',fName:'RO膜',fDesc:'RO膜能够有效去除水中钙、镁、细菌、有机物、无机物、金属离子和放射性物质等，经过该装置净化出的水晶莹清澈、甜美甘醇',allLife:'100',allFlow:'100',reday:'80',reflow:'60'},
+			// 	{fNum:'1',fName:'PP棉',fDesc:'RO膜能够有效去除水中钙、镁、细菌、有机物、无机物、金属离子和放射性物质等，经过该装置净化出的水晶莹清澈、甜美甘醇',allLife:'100',allFlow:'100',reday:'50',reflow:'80'},
+			// 	{fNum:'2',fName:'滤芯1',fDesc:'RO膜能够有效去除水中钙、镁、细菌、有机物、无机物、金属离子和放射性物质等，经过该装置净化出的水晶莹清澈、甜美甘醇',allLife:'100',allFlow:'100',reday:'70',reflow:'20'},
+			// 	{fNum:'3',fName:'滤芯2',fDesc:'RO膜能够有效去除水中钙、镁、细菌、有机物、无机物、金属离子和放射性物质等，经过该装置净化出的水晶莹清澈、甜美甘醇',allLife:'100',allFlow:'100',reday:'40',reflow:'70'},
+			// 	{fNum:'4',fName:'PP棉',fDesc:'RO膜能够有效去除水中钙、镁、细菌、有机物、无机物、金属离子和放射性物质等，经过该装置净化出的水晶莹清澈、甜美甘醇',allLife:'100',allFlow:'100',reday:'66',reflow:'90'}
+			// ];
             
-			home.tdsPure = 100;		// 纯水值
-			home.tdsRaw = 99;		// 原水值
-			home.statusIconName = home.statusIconClass[1];	// 水机状态图标
-			home.statusText = home.dstauseList[1];	// 水机状态
+			// home.tdsPure = 100;		// 纯水值
+			// home.tdsRaw = 99;		// 原水值
+			// home.statusIconName = home.statusIconClass[1];	// 水机状态图标
+			// home.statusText = home.dstauseList[1];	// 水机状态
 		})
 		
 		// 绑定websocket
 		function bindWebsocket(data){
 			$.ajax({
-				url: 'http://devicecloud.dianqiukj.com/api/device/bind',
-				type: 'post',
-				data: {
-					deviceID: data.deviceID,
-					client_id: data.client_id
-				},
+				url: "http://devicecloud.dianqiukj.com/api/device/bind",
+				type: 'get',
+				dataType: 'jsonp',
+				jsonp: 'jsoncallback',
+				data: data,
 				success: function(res){
 					console.log('res: ',res);
+					if(res.status != 200){
+
+					}
 				},
 				error: function(err){
 					console.log('err: ',err);
