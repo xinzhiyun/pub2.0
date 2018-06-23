@@ -156,4 +156,8 @@ class IndexController extends CommonController
             Common::toJson($e);
         }
     }
+    public function indexWebsocketNew()
+    {
+        $this->display();
+    }
 }

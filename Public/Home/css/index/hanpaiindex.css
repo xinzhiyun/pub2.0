@@ -1,0 +1,208 @@
+/*	
+	这是韩派的首页
+*/
+[v-cloak] {
+	display: none;
+}
+html{
+	background: rgba(20, 44, 59, .8);
+}
+body {
+	background: url("../images/indexbg.png") no-repeat !important;
+	background-size: 100%;
+}
+.top {
+	height: 54vh;
+}
+.bottom {
+	height: 46vh;
+}
+
+.circlepar{
+	position: relative;
+	width: 80vw;
+	height: 80vw;
+	max-height: 40vh;
+	max-width: 40vh;
+	/*border-radius: 50%;*/
+	box-sizing: border-box;
+	margin: 10vmin auto 0;
+	transform: rotate(-135deg);
+}
+.circlepar li{
+	width: 1px;
+	height: 7vmin;
+	position: absolute;
+	z-index: 2;
+	left: 50%;
+	top: 8vmin;
+	margin: -20px 0 0 -20px;
+	/*border: 1px solid #eee;*/
+	background: #fff;
+	border-radius: 30px;
+	box-sizing: border-box;
+	list-style: none;
+	transition: .01s linear;
+	transform-origin: 20px 19vh;
+}
+.zh-circle {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+.round {
+	animation: gogo 1s linear infinite;
+}
+@keyframes gogo {
+	0% {
+		opacity: 1;
+		background: rgb(40,191,251);
+	}
+	20% {
+		/* opacity: .8; */
+		background: palevioletred;
+	}
+	40% {
+		/* opacity: .6; */
+		background: fuchsia;
+	}
+	60% {
+		/* opacity: .4; */
+		background: yellowgreen;
+	}
+	80% {
+		/* opacity: .2; */
+		background: darkgrey;
+	}
+	100%{
+		opacity: .8;
+	}
+}
+.top .containTxt {
+	width: 100%;
+	height: 60%;
+	/* padding-right: 5%;
+	padding-top: 5%; */
+}
+/*状态显示*/
+.allStatus {
+	position: absolute;
+	bottom: 6%;
+	left: 50%;
+	transform: translateX(-50%);
+	color: rgb(40,191,251);
+}
+.allStatus>div>p>i {
+	font-size: 2rem;
+	color: rgb(40,191,251) !important;
+}
+/*原水值，纯水值*/
+.containTxt {
+	left: 50%;
+	color: #fff;
+	transform: rotate(135deg) translate(50%, 30%);
+}
+.waterval {
+	width: 56%;
+	height: 50%;
+	position: relative;
+	left: 50%;
+	margin-left: -27%;
+}
+.waterval:nth-of-type(1) {
+	padding: 1vh 0;
+	border-bottom: 1px solid #eee;
+	margin-bottom: 1vh;
+}
+/*纯水值，原水值*/
+.waterval>b {
+	position: relative;
+}
+.waterval #rawtdsVal>a {
+	font-size: 1.5rem;
+	font-weight: 400;
+	color: rgb(242,162,22);
+}
+.waterval #puretdsVal>a {
+	font-size: 1rem;
+	font-weight: 400;
+	color: rgb(242,162,22);
+}
+.flow_day {
+	height: 8vh;
+	display: none;
+	position: relative;
+	line-height: 8vh;
+	background: rgba(20, 44, 59, .8);
+	font-size: .4rem;
+}
+.flow_day::after {
+	content: '';
+	display: block;
+	clear: both;
+}
+.textLeft b,
+.textcenter b,
+.textRight b {
+	margin: 0 4px;
+	font-size: .5rem;
+	font-weight: 400;
+}
+.bottom .flow_day>div {
+	width: 33%;
+	height: auto;
+	position: relative;
+	top: 0;
+	left: 0;
+	float: left;
+	color: rgb(255,255,255);
+}
+.bottom .flow_day>div.textRight {
+	float: right;
+}
+.bottom ul {
+	width: 90%;
+	height: 38%;
+	position: relative;
+	left: 50%;
+	margin-left: -45%;
+}
+.bottom ul:nth-of-type(1) {
+	border-bottom: 1px solid rgba(220,220,220,.5);
+}
+.bottom ul::before {
+	content: '';
+	width: 1px;
+	height: 70%;
+	position: absolute;
+	left: 33.33%;
+	top: 50%;
+	transform: translateY(-50%);
+	background: rgba(220,220,220,.5);
+	z-index: 99;
+}
+.bottom ul::after {
+	content: '';
+	width: 1px;
+	height: 70%;
+	position: absolute;
+	left: 66.66%;
+	top: 50%;
+	transform: translateY(-50%);
+	background: rgba(220,220,220,.5);
+	visibility: visible;
+	z-index: 99;
+}
+.bottom ul li a {
+	display: inline-block;
+	color: #ddd;
+}
+/*底部图标颜色*/
+.icon-lvxin1,
+.icon-kaiguan,
+.icon-chongxi1,
+.icon-chongzhi1,
+.icon-wode1,
+.icon-chongzhi {
+	color: #fff;
+}
