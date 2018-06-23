@@ -1,5 +1,5 @@
 <?php
-
+use \Common\Tool\WeiXin;
 require_once substr(__DIR__, 0, strrpos(__DIR__, '/'))."/WxPay.Api.php";
 
 /**
@@ -298,9 +298,11 @@ class JsApiPay
 
 		$data = array();
 
-		$data["appid"] = WxPayConfig::APPID;
+        //$data["appid"] = WxPayConfig::APPID;
+        $data["appid"] = WeiXin::wx_sdk()->APPID;
 
-		$data["url"] = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+
+        $data["url"] = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
 		$time = time();
 
@@ -326,7 +328,8 @@ class JsApiPay
 
 			"scope" => "jsapi_address",
 
-			"appId" => WxPayConfig::APPID,
+            //"appId" => WxPayConfig::APPID,
+            "appId" => WeiXin::wx_sdk()->APPID,
 
 			"timeStamp" => $data["timestamp"],
 
@@ -360,7 +363,8 @@ class JsApiPay
 
 	{
 
-		$urlObj["appid"] = WxPayConfig::APPID;
+        //$urlObj["appid"] = WxPayConfig::APPID;
+        $urlObj["appid"] = WeiXin::wx_sdk()->APPID;
 
 		$urlObj["redirect_uri"] = "$redirectUrl";
 
@@ -396,9 +400,11 @@ class JsApiPay
 
 	{
 
-		$urlObj["appid"] = WxPayConfig::APPID;
+        //$urlObj["appid"] = WxPayConfig::APPID;
+        $urlObj["appid"] = WeiXin::wx_sdk()->APPID;
 
-		$urlObj["secret"] = WxPayConfig::APPSECRET;
+        //$urlObj["secret"] = WxPayConfig::APPSECRET;
+        $urlObj["secret"] = WeiXin::wx_sdk()->APPSECRET;
 
 		$urlObj["code"] = $code;
 

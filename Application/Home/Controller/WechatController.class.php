@@ -1,5 +1,6 @@
 <?php
 namespace Home\Controller;
+use Common\Tool\WeiXin;
 use Think\Controller;
 // 引入微信事件接收类
 // use Home\Controller\WeixinEventController;
@@ -13,19 +14,13 @@ class WechatController extends Controller
     public function add($openid)
     {
         // 获取用户openid
-        $openid = $openid;
-
-        // 实例化微信JSSDK类对象
-        $wxJSSDK = new \Org\Util\WeixinJssdk;
-        // 调用获取公众号的全局唯一接口调用凭据
-        $accessToken = $wxJSSDK->getAccessToken();
-        file_put_contents('./accessToken.txt', $accessToken);
+        $accessToken = WeiXin::getAccessToken();
 
         // 请求返回简体中文版用户信息数据
         $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$accessToken.'&openid='.$openid.'&lang=zh_CN';
 
         // 发送请求获取用户信息
-        $userInfo = $wxJSSDK->httpGet($url);
+        $userInfo = WeiXin::httpGet($url);
 
         // 把 JSON 格式的字符串转换为PHP数组
         $userInfo = json_decode($userInfo, true);
@@ -70,8 +65,6 @@ class WechatController extends Controller
      */
     public function delete($openid)
     {
-        // 获取用户openid
-        $openid = $openid;
         // 修改用户状态为0（禁用）
         $userData['user_status'] = 0;
         M('Users')->where('`open_id`="'.$openid.'"')->save($userData);
@@ -104,22 +97,8 @@ class WechatController extends Controller
      */
     public function create_menu()
     {
-        // $appid = C('APPID');
-        // $appsecret = C('APPSECRET');
-        // $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
-
-        // $output = $this->https_request($url);
-        // $jsoninfo = json_decode($output, true);
-
-        // $access_token = $jsoninfo["access_token"];
-        // 
-        // 实例化微信JSSDK类对象
-        $wxJSSDK = new \Org\Util\WeixinJssdk;
         // 调用获取公众号的全局唯一接口调用凭据
-        $access_token = $wxJSSDK->getAccessToken();
-
-
-
+        $access_token = WeiXin::getAccessToken();
 
         $jsonmenu = '{
             "button":[
@@ -173,30 +152,9 @@ class WechatController extends Controller
 
 
         $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=".$access_token;
-        $result = $this->https_request($url, $jsonmenu);
+        $result = WeiXin::httpPost($url, $jsonmenu);
         var_dump($result);
 
-    }
-
-    /**
-     * CURL使用
-     * @param  string $url  URL地址
-     * @param  Array $data 传递数据
-     * @return string  $output     传递数据时返回的结果
-     */
-    public function https_request($url,$data = null){
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
-        if (!empty($data)){
-            curl_setopt($curl, CURLOPT_POST, 1);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-        }
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        $output = curl_exec($curl);
-        curl_close($curl);
-        return $output;
     }
 
 }

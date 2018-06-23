@@ -15,8 +15,9 @@ class WeixinEventController extends Controller
             Communal::setDB($conf);
             Communal::setWX($conf);
             $this->getEventData();exit;
+        }else{
+            echo 'ERROR';
         }
-        echo 'ERROR';
     }
 
     // 接受微信服务器下发的事件
@@ -28,39 +29,31 @@ class WeixinEventController extends Controller
 		if($xml){
 		    // 转成php数组
 			$data = $this->toArray($xml);
-            Log::write(json_encode($data), '微信');
+			//Log::write(json_encode($_SESSION['WX_CONFIG']), '微信');
 
-            // 判断如果是关注事件
-            if($data['Event'] == 'subscribe'){
-            //echo 2;   
-                // 实例化微信信息类型
-                $Wechat = new WechatController;
-                // 调用填写微信信息的方法
-                $Wechat->add($data['FromUserName']);
-                
-                // file_put_contents('./add.txt', $xml);
-                exit;
+            if(!empty($data['Event'])){
+                $Wechat = new WechatController; // 实例化微信信息类型
+                // 判断如果是关注事件
+                if($data['Event'] == 'subscribe'){
+                    // 调用填写微信信息的方法
+                    $Wechat->add($data['FromUserName']);
+                    exit;
+                }
+
+                // 判断如果是取消关注事件
+                if($data['Event'] == 'unsubscribe'){
+                    // 调用删除微信信息的方法
+                    $Wechat->delete($data['FromUserName']);
+                    exit;
+                }
+                // 判断如果是上报地理位置事件
+                if($data['Event'] == 'LOCATION'){
+                    // 调用上报用户地理位置的方法
+                    $Wechat->location($data);
+                    exit;
+                }
             }
 
-            // 判断如果是取消关注事件
-            if($data['Event'] == 'unsubscribe'){
-                //file_put_contents('./del.txt', $xml);
-                // 实例化微信信息类型
-                $Wechat = new WechatController;
-                // 调用删除微信信息的方法
-                $Wechat->delete($data['FromUserName']);
-                exit;
-            }
-
-            // 判断如果是上报地理位置事件
-            if($data['Event'] == 'LOCATION'){
-                //file_put_contents('./del.txt', $xml);
-                // 实例化微信信息类型
-                $Wechat = new WechatController;
-                // 调用上报用户地理位置的方法
-                $Wechat->location($data);
-                exit;
-            }
 		}else{
             // // 实例化微信验证对象服务器第一次接入使用
             $wechatObj = new \Org\Util\WechatCallbackapiTest;
