@@ -9,6 +9,12 @@ namespace Common\Tool;
 use Think\Log;
 class Communal
 {
+    public static function login($user)
+    {
+        $url = "http://devicecloud.dianqiukj.com/api/Login/index";
+        $res =  httpPost($url,['user'=>$user]);
+        return json_decode($res);
+    }
     /**
      * 设置微信
      */
@@ -51,5 +57,6 @@ class Communal
         header('Content-Type:application/json; charset=utf-8');
         exit(json_encode($data));
     }
+
 
 }

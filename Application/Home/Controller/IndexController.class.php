@@ -196,7 +196,6 @@ class IndexController extends CommonController
                     'deviceInfo' => json_encode($deviceInfo),
                 );
 
-
                 // 分配数据到模板
                 $this->assign($assign);
                 // 显示模板
