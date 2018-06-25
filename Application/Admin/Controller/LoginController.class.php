@@ -44,11 +44,13 @@ class LoginController extends Controller
     // 加载客户登录
     public function __call($method,$args) {
         // $method   客户标识
-        $res = D('Login')->where("user='{$method}'")->find();
-        if(!empty($res)){
-            Communal::setDB($res);
+        // $res = D('Login')->where("user='{$method}'")->find();
+        $res = Communal::login($method);
+        objtoArray($res);
 
-            $_SESSION['admintitle'] = $res['admintitle'];
+        if(!empty($res) && $res['status']==200){
+            Communal::setDB($res['data']);
+            $_SESSION['admintitle'] = $res['data']['admintitle'];
         }else{
             unset($_SESSION['admintitle']);
             unset($_SESSION['DB_CONFIG']);
