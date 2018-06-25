@@ -33,7 +33,7 @@ html,body {
 	overflow: hidden;
 } 
 .top{
-	width:10rem;
+	width:100vw;
 	height:62vh;
 	position: relative;
 	padding-top: 5%;
@@ -171,16 +171,13 @@ html,body {
 .allStatus>div>p>i{
 	font-size: 1.6rem;
 	line-height: 0.05rem;
+}
+.glint {
 	-webkit-animation:aImg3 3s linear infinite;
 	animation:aImg3 3s linear infinite;
 }
-.allStatus>.fullWaters>p>i{
-	font-size: 1.6rem;
-	line-height: 0.05rem;
-	animation: none;
-}
 .allStatus>div>span{
-	font-size: 0.45rem;
+	font-size: 0.6rem;
 }
 
 .shuibolang{
@@ -275,9 +272,7 @@ html,body {
 .bottom ul li p{
 	font-size: 1.1rem;
 }
-.bottom ul li span{
-	font-size:0.4rem;
-}
+
 
 /*底部图标颜色*/
 .icon-lvxin1{
@@ -338,13 +333,6 @@ html,body {
 	100%{left:0;}
 }
 
-i.icon-zhishui,i.icon-shuiman{
-	color:#039CE9!important;
-}
-
-i.icon-chongxi{
-	color:#D98C34!important;
-}
 i.icon-jianxiu,i.icon-queshui{
 	color:#DF2426!important;
 }
@@ -386,7 +374,7 @@ html{
 	left: 102%;
 	bottom: 18%;
 	color: #fff;
-	font-size: .4rem;
+	font-size: .6rem;
 	font-weight: 400;
 }
 #puretdsVal>span {
@@ -394,11 +382,12 @@ html{
 	left: 105%;
 	bottom: 18%;
 	color: #fff;
-	font-size: .4rem;
+	font-size: .6rem;
 	font-weight: 400;
 }
 .icon-leaking {
-	color: red;
+	color: red !important;
+	line-height: 1.2 !important;
 }
 .flow_day {
 	width: 100vw;
