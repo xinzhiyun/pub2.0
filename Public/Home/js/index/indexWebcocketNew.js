@@ -82,7 +82,7 @@ var home = new Vue({
 
 				}else{
 					// 点击取消
-					noticeFn({text:'取消！',time:800});
+					noticeFn({text:'取消！'});
 				}
 			})
 		},
@@ -100,7 +100,7 @@ var home = new Vue({
 					that.sendMSG(mode);
 					
 				}else{
-					noticeFn({text: '取消'});
+					noticeFn({text: '取消！'});
 				}
 			});
 

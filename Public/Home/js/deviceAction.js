@@ -12,12 +12,11 @@ function deviceAction(data, callback){
         dataType: 'jsonp',
         jsonp: 'jsoncallback',
         success: function(res){
-            console.log('res: ',res);
+            console.log('deviceAction_res: ',res);
             callback(res);
         },
-        
         error: function(err){
-            console.log('err: ',err);
+            console.log('deviceAction_err: ',err);
             alert('系统出错，请稍后再试');
         }
     }
@@ -39,8 +38,14 @@ function deviceAction(data, callback){
     $.ajax(option);
 }
 
-
-// 绑定websocket
+/**
+ * @description {绑定websocket}
+ * @param {object}  data 参数
+ * @param {string}  data.client_id: websocketid,
+ * @param {string}  data.deviceID: 设备id,
+ * @param {string}  data.token: '',
+ * @return {function} callback 回调函数
+ */
 function bindWebsocket(data, callback){
     $.ajax({
         url: "http://devicecloud.dianqiukj.com/api/device/bind",
@@ -49,11 +54,11 @@ function bindWebsocket(data, callback){
         jsonp: 'jsoncallback',
         data: data,
         success: function(res){
-            console.log('res: ',res);
+            console.log('bindWebsocket_res: ',res);
             callback(res);
         },
         error: function(err){
-            console.log('err: ',err);
+            console.log('bindWebsocket_err: ',err);
             alert('系统出错，请稍后再试');
         }
     })
