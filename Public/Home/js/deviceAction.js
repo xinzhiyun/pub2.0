@@ -3,6 +3,14 @@
  * @param {object} data 参数
  * @param {string} data.mode 模式
  * @param {string} data.deviceId 设备id
+ * 用法：
+ * deviceAction({
+        mode: 5,
+        filter: flternum,
+        deviceId: deviceId
+    },function(res){
+        console.log('reset_res: ',res);
+    })
  */
 function deviceAction(data, callback){
     // mode: 1   //开机	 2关机  3冲洗  4取消冲洗  5复位滤芯  "Pram":[1,2] 滤芯级数
@@ -45,6 +53,16 @@ function deviceAction(data, callback){
  * @param {string}  data.deviceID: 设备id,
  * @param {string}  data.token: '',
  * @return {function} callback 回调函数
+ * 用法：
+ * id(res['client_id']){
+        bindWebsocket({
+            client_id: client_id,
+            deviceID: deviceID,
+            token: ''
+        }, function(res){
+            console.log('bindWebsocket_res: '.res);
+        })
+    }
  */
 function bindWebsocket(data, callback){
     $.ajax({
