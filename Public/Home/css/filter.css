@@ -10,6 +10,10 @@ p{
     color: #7A7A7A;
     padding: 3px 0;
 }
+body {
+    font-size: .7rem;
+}
+#navbar {display: none;}
 ._progress{
     height: 4px;
     display: flex;
@@ -218,7 +222,7 @@ h3{
     height: 9vh;
     line-height: 9vh;
     vertical-align: middle;
-    font-size: .5rem;
+    font-size: .7rem;
 }
 ._ul li:nth-of-type(1) {
     color: #039CE9;

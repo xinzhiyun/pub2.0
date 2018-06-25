@@ -25,23 +25,7 @@ var home = new Vue({
 			    "PackType": "login",
 			    "Vison": 0,
 			},
-            bjson: {
-                "DeviceID": 'deviceId',
-                "PackType": "Select",
-                "Vison": 0,
-            },
-			statusIconName: '',								// 状态图标
-			statusIconClass: {
-				'0': 'iconfont icon-makewater glint',		// 制水
-				'1': 'iconfont icon-washing glint',			// 冲洗
-				'2': 'iconfont icon-fullwater',				// 水满
-				'3': 'iconfont icon-lacking glint',			// 缺水
-				'4': 'iconfont icon-leaking glint',			// 漏水
-				'5': 'iconfont icon-check glint',			// 检修
-				'6': 'iconfont icon-leaking',			// 已关机
-				'7': 'iconfont icon-leaking',			// 已欠费
-				'8': 'iconfont icon-leaking'			// 已离线
-			},
+			switchText: '',			// 开关机状态
 			reday: '--',			//剩余天数
 			usedday: '--',			//已用天数
 			reflow: '--',			//剩余流量
@@ -62,11 +46,13 @@ var home = new Vue({
 		power: function(){
 			var that = this;
 			var text = '';
-			if(that.powerStatus == '开机'){
+			var mode = that.switchText == 0 || that.dataList.DeviceStause == 6 || that.dataList.DeviceStause == 7 ? 1 : 2;
+			console.log('mode: ',mode);
+			if(mode == 1){
 				console.log('开机');
 				text = '确定要开机吗？';
 
-			}else if(that.powerStatus == '关机'){
+			}else{
 				console.log('关机');
 				text = '确定要关机吗？';
 			}
@@ -74,25 +60,21 @@ var home = new Vue({
 			// 确认取消框
 			confirmFn(text, function(res){
 				if(res){
-					// 设置数据包配置
-					home.ajson['DeviceID'] = home.deviceId;
-					home.ajson['PackType'] = 'SetData';
-					home.ajson['curTime'] = 0;
-
-					// 点击确定
-					if(that.powerStatus == '开机'){
-	                    home.ajson['DeviceStause'] = 8;
-	                    home.ajson['type'] = '开机中';
-						that.powerStatus = '关机';
-
-					}else if(that.powerStatus == '关机'){
-	                    home.ajson['DeviceStause'] = 7;
-	                    home.ajson['type'] = '关机中';
-						that.powerStatus = '开机';
-
+					if(that.powerStatus == '关机'){
+						that.powerStatus = '开机中...';
+					}else{
+						that.powerStatus = '关机中...';
 					}
+					// 点击确定
+					// if(that.powerStatus == '开机'){
+					// 	mode = 2;
+
+					// }else if(that.powerStatus == '关机'){
+					// 	mode = 1;
+
+					// }
 					// 发送数据包
-					that.sendMSG(home.ajson);
+					that.sendMSG(mode);
 					
 					// 设置水机状态
 					// home.statusIconName = home.statusIconClass[home.ajson['DeviceStause']];	// 水机状态图标
@@ -100,28 +82,25 @@ var home = new Vue({
 
 				}else{
 					// 点击取消
-					noticeFn({text:'取消！',time:800});
+					noticeFn({text:'取消！'});
 				}
 			})
 		},
 		// 冲洗
-		wash: function(){
+		wash: function(mode){
 			var that = this;
-			if(home.statusText == '欠费停机' || home.statusText == '关机' || home.statusText == '检修'){
-				noticeFn({text: '当前设备状态不能冲洗!'});
-				return
+			var text = '确定要开始冲洗吗？';
+			if(home.statusText == 1){
+				mode = 4;	// 取消冲洗
+				text = '确定要取消冲洗吗？';
 			}
-			confirmFn('点击确认开始冲洗', function(res){
+			confirmFn(text, function(res){
 				if(res){
-					home.ajson['PackType'] = 'SetData';
-					home.ajson['DeviceStause'] = '1';
-					home.ajson['type'] = '冲洗中';
-					home.ajson['curTime'] = '0';
-					// 发送数据包
-					that.sendMSG(home.ajson);
+					// 发送数据
+					that.sendMSG(mode);
 					
 				}else{
-					noticeFn({text: '取消'});
+					noticeFn({text: '取消！'});
 				}
 			});
 
@@ -212,32 +191,22 @@ var home = new Vue({
 				}
 			})
 		},
-		sendMSG: function(data){
-			console.log('senddata: ',data);
-			// 发送json格式数据
-			if(Object.prototype.toString.call(data) === "[object Object]"){
-				data = JSON.stringify(data);
-			}
+		sendMSG: function(mode){
+			// mode: 1   //开机	 2关机  3冲洗  4取消冲洗  5复位滤芯  "Pram":[1,2] 滤芯级数
+			console.log('mode: ',mode);
 			// 发送数据（websocket发送）
-			// sendmsg(data);
-			// 调用后端接口
-			$.ajax({
-				url: getURL('Home', 'Index/control'),
-				type: 'post',
-				data: data,
-				success: function(res){
-					console.log('res: ',res);
-					if(res.status == 200){
-						// 成功
-					}else{
-						noticeFn({text: res.msg});
-					}
-				},
-				error: function(err){
-					console.log('err: ',err);
-					noticeFn({text: '系统出错，请稍后再试'});
+			// sendmsg(mode);
+			// 设备操作
+			deviceAction({
+				mode: mode,
+				deviceId: home.deviceId
+			}, function(res){
+				if(res.status == 200){
+					// 成功
+				}else{
+					noticeFn({text: res.msg});
 				}
-			})
+			});
 		},
 		// 分享
 		shareFn: function(){

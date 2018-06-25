@@ -4,12 +4,17 @@
 [v-cloak] {
 	display: none;
 }
+#navbar {
+	display: none !important;
+}
 html{
 	background: rgba(20, 44, 59, .8);
 }
 body {
-	background: url("../images/indexbg.png") no-repeat !important;
+	background: url("../../images/indexbg.png") no-repeat !important;
 	background-size: 100%;
+	font-size: .7rem !important;
+	overflow-x: hidden;
 }
 .top {
 	height: 54vh;
@@ -17,7 +22,10 @@ body {
 .bottom {
 	height: 46vh;
 }
-
+#noticeDiv>span {
+	background: #fff !important;
+    color: #000 !important;
+}
 .circlepar{
 	position: relative;
 	width: 80vw;
@@ -55,27 +63,41 @@ body {
 }
 @keyframes gogo {
 	0% {
+		width: 3px;
 		opacity: 1;
-		background: rgb(40,191,251);
-	}
-	20% {
-		/* opacity: .8; */
 		background: palevioletred;
 	}
+	10% {
+		width: 3px;
+		/* opacity: .8; */
+		background: rgb(216, 112, 211);
+	}
+	20% {
+		width: 3px;
+		/* opacity: .8; */
+		background: rgb(166, 112, 216);
+	}
 	40% {
+		width: 3px;
 		/* opacity: .6; */
-		background: fuchsia;
+		background: rgb(112, 157, 216);
 	}
 	60% {
+		width: 2px;
 		/* opacity: .4; */
-		background: yellowgreen;
+		background: rgb(112, 216, 202);
 	}
 	80% {
-		/* opacity: .2; */
-		background: darkgrey;
+		width: 2px;
+		background: rgb(176, 216, 112);
+	}
+	90%{
+		width: 2px;
+		background: #f1f1f1;
 	}
 	100%{
 		opacity: .8;
+		background: #eee;
 	}
 }
 .top .containTxt {
@@ -93,8 +115,11 @@ body {
 	color: rgb(40,191,251);
 }
 .allStatus>div>p>i {
-	font-size: 2rem;
-	color: rgb(40,191,251) !important;
+	font-size: 3rem;
+	color: rgb(40,191,251);
+}
+.icon-leaking {
+	font-size: 2rem !important;
 }
 /*原水值，纯水值*/
 .containTxt {
@@ -119,12 +144,12 @@ body {
 	position: relative;
 }
 .waterval #rawtdsVal>a {
-	font-size: 1.5rem;
+	font-size: 2rem;
 	font-weight: 400;
 	color: rgb(242,162,22);
 }
 .waterval #puretdsVal>a {
-	font-size: 1rem;
+	font-size: 1.6rem;
 	font-weight: 400;
 	color: rgb(242,162,22);
 }
@@ -134,7 +159,7 @@ body {
 	position: relative;
 	line-height: 8vh;
 	background: rgba(20, 44, 59, .8);
-	font-size: .4rem;
+	font-size: .6rem;
 }
 .flow_day::after {
 	content: '';
@@ -145,7 +170,7 @@ body {
 .textcenter b,
 .textRight b {
 	margin: 0 4px;
-	font-size: .5rem;
+	font-size: .8rem;
 	font-weight: 400;
 }
 .bottom .flow_day>div {
@@ -196,6 +221,7 @@ body {
 .bottom ul li a {
 	display: inline-block;
 	color: #ddd;
+	line-height: 1.6;
 }
 /*底部图标颜色*/
 .icon-lvxin1,
