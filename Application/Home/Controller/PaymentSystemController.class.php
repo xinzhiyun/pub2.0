@@ -775,7 +775,7 @@ class PaymentSystemController extends Controller
         // 傳用戶ID
         //$input->SetDetail($uid);
         // 产品内容
-        $input->SetBody('点球科技商品购买');
+        $input->SetBody('商品购买');
         // 唯一订单ID
         $input->SetAttach($order_id);
         // 设置商户系统内部的订单号,32个字符内、可包含字母, 其他说明见商户订单号

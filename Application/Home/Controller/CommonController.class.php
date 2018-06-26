@@ -16,14 +16,16 @@ class CommonController extends Controller
     public function __construct()
     {
         if(!empty($_GET['user_sign'])){
-            $conf = D('Admin/Login')->where("id='{$_GET['user_sign']}'")->find();
-            if(!empty($conf)){
-                Communal::setDB($conf);
-                Communal::setWX($conf);
+            unset($_SESSION['DB_CONFIG']);
+            $res = Communal::login($_GET['user_sign']);
+            if(!empty($res) && $res['status']==200){
+                Communal::setDB($res['data']);
+                Communal::setWX($res['data']);
             }else{
-                echo 'ERROR';
+                echo 'ERROR';exit;
             }
         }
+
         parent::__construct();
     }
 	/**

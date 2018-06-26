@@ -37,16 +37,19 @@ class LoginController extends Controller
         }else{
             // 登录检测
             if(!empty($_SESSION['adminuser'])) $this->redirect('index/index');
+            $this->__call('hanpai',[]);
             $this->display();
         }
     }
 
     // 加载客户登录
     public function __call($method,$args) {
+        if($method=='index'){
+            $method = 'hanpai';
+        }
         // $method   客户标识
         // $res = D('Login')->where("user='{$method}'")->find();
         $res = Communal::login($method);
-        objtoArray($res);
 
         if(!empty($res) && $res['status']==200){
             Communal::setDB($res['data']);

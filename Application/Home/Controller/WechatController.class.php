@@ -1,5 +1,6 @@
 <?php
 namespace Home\Controller;
+use Common\Tool\Communal;
 use Common\Tool\WeiXin;
 use Think\Controller;
 // 引入微信事件接收类
@@ -88,67 +89,100 @@ class WechatController extends Controller
         $this->display();
     }
 
-
-
-    
     /**
      * 生成自定义菜单
      * @return bool true or false
+     * http://demo.dianqiukj.com/index.php/Home/Wechat/create_menu.html?user_sign=hanpai
      */
     public function create_menu()
     {
+        if(!empty($_GET['user_sign'])){
+            unset($_SESSION['DB_CONFIG']);
+            $res = Communal::login($_GET['user_sign']);
+            if(!empty($res) && $res['status']==200){
+                Communal::setWX($res['data']);
+            }else{
+                echo 'ERROR';exit;
+            }
+        }
+
         // 调用获取公众号的全局唯一接口调用凭据
         $access_token = WeiXin::getAccessToken();
 
-        $jsonmenu = '{
-            "button":[
-                {    
-                  "name":"设备管理",
-                  "sub_button":[
-                        {
-                           "type":"view",
-                           "name":"我的水机",
-                           "url":"http://hanpai2.dianqiukj.com/"
-                        },
-                        {
-                           "type":"view",
-                           "name":"安装人员",
-                           "url":"http://hanpai2.dianqiukj.com/home/users/login.html"
-                        },
-                        {
-                           "type":"view",
-                           "name":"代缴费",
-                           "url":"http://hanpai2.dianqiukj.com/home/shop/topup"
-                        }
+        $baseUrl = "http://demo.dianqiukj.com/index.php/";
+        $user_sign = "dianqiu";
+
+        $menu =[
+            "button"=>[// 按钮数组
+                [
+                    "name"=>'设备管理',
+                    "sub_button"=>[
+                        ['type'=>"view",'name'=>"我的水机","url"=>$baseUrl."home/index/index/user_sign/".$user_sign],
+                        ['type'=>"view",'name'=>"安装人员",'url'=>$baseUrl."home/index/index/user_sign/".$user_sign],
+                        ['type'=>"view",'name'=>"代缴费",'url'=>$baseUrl."home/index/index/user_sign/".$user_sign],
+
                     ]
-                },
-                {
-                   "name":"关于超人",
-                   "sub_button":[
-                       {    
-                           "type":"view",
-                           "name":"超人官网",
-                           "url":"http://www.china-chaoren.com.cn/phone"
-                        },
-                        {    
-                           "type":"view",
-                           "name":"新闻动态",
-                           "url":"http://www.china-chaoren.com.cn/phone/news/index/id/59.html"
-                        },
-                        {
-                           "type":"view",
-                           "name":"公益超人",
-                           "url":"http://mp.weixin.qq.com/s/uzdQOvzLx7LxIBg5u3zaWA"
-                        },
-                        {
-                           "type":"view",
-                           "name":"加入我们",
-                           "url":"http://mp.weixin.qq.com/s/azC2ywNI1LnVZsPWbwrZ-Q"
-                        }
+                ],
+                [
+                    "name"=>'关于韩派',
+                    "sub_button"=>[
+                        ['type'=>"view",'name'=>"新闻动态",'url'=>"http://www.hanpwater.com/wap/list/108_1.html"],
+
                     ]
-               }
-           ]
-        }';
+                ]
+            ]
+        ];
+        $jsonmenu = json_encode($menu,JSON_UNESCAPED_UNICODE);
+
+//        $jsonmenu = '{
+//            "button":[
+//                {
+//                  "name":"设备管理",
+//                  "sub_button":[
+//                        {
+//                           "type":"view",
+//                           "name":"我的水机",
+//                           "url":"http://hanpai2.dianqiukj.com/index.php/home/index/index/user_sign/hanpai"
+//                        },
+//                        {
+//                           "type":"view",
+//                           "name":"安装人员",
+//                           "url":"http://hanpai2.dianqiukj.com/home/users/login.html?user_sign=hanpai"
+//                        },
+//                        {
+//                           "type":"view",
+//                           "name":"代缴费",
+//                           "url":"http://hanpai2.dianqiukj.com/home/shop/topup?user_sign=hanpai"
+//                        }
+//                    ]
+//                },
+//                {
+//                   "name":"关于韩派",
+//                   "sub_button":[
+//                       {
+//                           "type":"view",
+//                           "name":"韩派官网",
+//                           "url":"http://www.hanpwater.com/wap"
+//                        },
+//                        {
+//                           "type":"view",
+//                           "name":"新闻动态",
+//                           "url":"http://www.hanpwater.com/wap/list/108_1.html"
+//                        },
+//                        {
+//                           "type":"view",
+//                           "name":"产品中心",
+//                           "url":"http://www.hanpwater.com/wap/list/107_1.html"
+//                        },
+//                        {
+//                           "type":"view",
+//                           "name":"联系我们",
+//                           "url":"http://www.hanpwater.com/wap/page/131.html"
+//                        }
+//                    ]
+//               }
+//           ]
+//        }';
 
 
         $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=".$access_token;

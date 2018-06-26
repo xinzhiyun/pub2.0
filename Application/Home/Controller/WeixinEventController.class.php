@@ -1,6 +1,7 @@
 <?php
 namespace Home\Controller;
 use Common\Tool\Communal;
+use Common\Tool\WeiXin;
 use Home\Controller\WechatController;
 use Think\Controller;
 use Think\Log;
@@ -9,20 +10,30 @@ class WeixinEventController extends Controller
 {
     public function __call($name, $arguments)
     {
-        // 识别客户
-        $conf = D('Admin/Login')->where("user='{$name}'")->find();
-        if(!empty($conf)){
-            Communal::setDB($conf);
-            Communal::setWX($conf);
+        $res = Communal::login($name);
+
+        if(!empty($res) && $res['status']==200){
+            Communal::setDB($res['data']);
+            Communal::setWX($res['data']);
             $this->getEventData();exit;
-        }else{
-            echo 'ERROR';
         }
     }
 
     // 接受微信服务器下发的事件
     public function getEventData()
     {
+        if(empty($_SESSION['WX_CONFIG'])){
+            //辨别微信客户
+            if(!empty($_GET['user_sign'])){
+                unset($_SESSION['DB_CONFIG']);
+                $res = Communal::login($_GET['user_sign']);
+                if(!empty($res) && $res['status']==200){
+                    Communal::setWX($res['data']);
+                    Communal::setDB($res['data']);
+                }
+            }
+        }
+
     	// 接受微信推送的事件
     	$xml=file_get_contents('php://input', 'r');
 

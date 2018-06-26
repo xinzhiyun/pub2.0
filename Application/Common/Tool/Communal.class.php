@@ -13,8 +13,11 @@ class Communal
     {
         $url = "http://devicecloud.dianqiukj.com/api/Login/index";
         $res =  httpPost($url,['user'=>$user]);
-        return json_decode($res);
-    }
+        $res = json_decode($res);
+        objtoArray($res);
+
+        return $res;
+;    }
     /**
      * 设置微信
      */
