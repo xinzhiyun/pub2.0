@@ -109,7 +109,7 @@ body {
 /*状态显示*/
 .allStatus {
 	position: absolute;
-	bottom: 6%;
+	bottom: 2%;
 	left: 50%;
 	transform: translateX(-50%);
 	color: rgb(40,191,251);
