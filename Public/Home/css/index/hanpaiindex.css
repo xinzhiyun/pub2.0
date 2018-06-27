@@ -59,6 +59,8 @@ body {
 	border-radius: 50%;
 }
 .round {
+	-webkit-animation: gogo 1s linear infinite;
+	-moz-animation: gogo 1s linear infinite;
 	animation: gogo 1s linear infinite;
 }
 @keyframes gogo {
