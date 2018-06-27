@@ -189,8 +189,25 @@
 
 	</script>
 	<script>
+		var status = '{{$status}}'; // 滤芯剩余量
+		if(status){	// 状态信息
+			status = $.parseJSON(status);
+			console.log('status: ',status);
+
+			home.leasingmode = status.leasingmode;
+			home.statusText = status.devicestause;
+		}
+		// 显示用的数据
+        // filter.dataList.push({
+        //     name: filterInfo[i].filtername,                    // 滤芯名称
+        //     desc: filterInfo[i].introduce,                     // 滤芯描述
+        //     reday: filterData["redayfilter"+(i+1)],           // 剩余天数
+        //     reflow: filterData["reflowfilter"+(i+1)],         // 剩余流量
+        //     sumday: filterData.sumday,                        // 已用天数
+        //     sumflow: filterData.sumflow                       // 已用流量
+        // })
         // 微信配置
-		wx.config({ 
+		wx.config({
 		    debug: false,
 		    appId: '{{$wxinfo["appId"]}}',
 		    timestamp: '{{$wxinfo["timestamp"]}}',
@@ -205,8 +222,15 @@
 				'onMenuShareQZone'
 		    ]
 		});	
-		var deviceInfo = JSON.parse('{{$deviceInfo}}');
-		home.deviceId = deviceInfo.device_code;
+		var deviceInfo = '{{$deviceInfo}}';
+		if(deviceInfo){	// 设备数据
+			deviceInfo = JSON.parse(deviceInfo);
+			console.log('deviceInfo: ',deviceInfo);
+			
+			home.deviceId = deviceInfo.device_code;
+			home.tdsPure = deviceInfo.puretds;
+			home.tdsRaw = deviceInfo.rawtds;
+		}
 		console.log('deviceId: ',home.deviceId);
 
 		// 记录是从充值进入商城还是点击商城进入商城
@@ -240,7 +264,7 @@
 				// str: 数据类型（接收，关闭， 错误），
 				// 在websocket.js中给出，不需要传
 				console.log(str, res);
-				home.deviceId = 868575028072504;
+				// home.deviceId = 868575028072504;
 				if(JSON.parse(res)['client_id']){
 					var client_id = JSON.parse(res)['client_id'];
 					// 绑定websocket链接

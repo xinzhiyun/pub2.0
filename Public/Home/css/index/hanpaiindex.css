@@ -155,7 +155,6 @@ body {
 }
 .flow_day {
 	height: 8vh;
-	display: none;
 	position: relative;
 	line-height: 8vh;
 	background: rgba(20, 44, 59, .8);
