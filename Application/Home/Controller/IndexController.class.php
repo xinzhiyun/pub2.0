@@ -108,8 +108,8 @@ class IndexController extends CommonController
                 // 滤芯详情
                 $code = M('devices')->where("id={$_SESSION['homeuser']['did']}")->find();
 
-                $status = M('devices_statu')->where("DeviceID='{$code['device_code']}'")->find();
-                unset($status['loaction']);
+                $status = M('devices_statu')->where("DeviceID='{$code['device_code']}'")->field('leasingmode,devicestause')->find();
+               
                 $type = M('device_type')->where("id={$code['type_id']}")->find();
                 unset($type['id'], $type['typename'], $type['addtime']);
                 $sum = array_filter($type);
