@@ -210,7 +210,6 @@ h3{
 #ulDiv {
 	height: 10vh;
 	position: fixed;
-    top: 7.5vh;
 	background: #fff;
 	z-index: 999;
 }
@@ -244,7 +243,7 @@ h3{
 }
 #_box>div:nth-of-type(2) {
     position: relative;
-    top: 18vh;
+    top: 10vh;
 }
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
 ::-webkit-scrollbar  
