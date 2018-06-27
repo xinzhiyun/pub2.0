@@ -109,7 +109,7 @@ class IndexController extends CommonController
                 $code = M('devices')->where("id={$_SESSION['homeuser']['did']}")->find();
 
                 $status = M('devices_statu')->where("DeviceID='{$code['device_code']}'")->field('leasingmode,devicestause')->find();
-               
+
                 $type = M('device_type')->where("id={$code['type_id']}")->find();
                 unset($type['id'], $type['typename'], $type['addtime']);
                 $sum = array_filter($type);
@@ -119,14 +119,20 @@ class IndexController extends CommonController
                     $map['alias'] = substr($value, $str+1);
                     $res[] = M('filters')->where($map)->find();
                 }
-                $assign = array(
-                    'res' => json_encode($res),
-                    'status' => json_encode($status),
-                    'deviceInfo' => json_encode($deviceInfo),
-                );
-
+//                $assign = array(
+//                    'res' => json_encode($res),
+//                    'status' => $status,
+//                    'deviceInfo' => json_encode($deviceInfo),
+//                );
+                if(empty($status['leasingmode'])){
+                    $status['leasingmode'] = 0;
+                }
                 // 分配数据到模板
-                $this->assign($assign);
+                $this->assign('leasingmode',$status['leasingmode']);
+                $this->assign('devicestause',$status['devicestause']);
+
+                $this->assign('res',json_encode($res));
+                $this->assign('deviceInfo',json_encode($deviceInfo));
                 // 显示模板
                 $this->display('indexWebsocketNew');
             }
