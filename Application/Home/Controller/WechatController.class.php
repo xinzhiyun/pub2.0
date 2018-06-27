@@ -92,7 +92,7 @@ class WechatController extends Controller
     /**
      * 生成自定义菜单
      * @return bool true or false
-     * http://demo.dianqiukj.com/index.php/Home/Wechat/create_menu.html?user_sign=hanpai
+     * http://hanpai2.dianqiukj.com/index.php/Home/Wechat/create_menu.html?user_sign=hanpai
      */
     public function create_menu()
     {
@@ -109,8 +109,8 @@ class WechatController extends Controller
         // 调用获取公众号的全局唯一接口调用凭据
         $access_token = WeiXin::getAccessToken();
 
-        $baseUrl = "http://demo.dianqiukj.com/index.php/";
-        $user_sign = "dianqiu";
+        $baseUrl = "http://hanpai2.dianqiukj.com/index.php/";
+        $user_sign = "hanpai";
 
         $menu =[
             "button"=>[// 按钮数组
@@ -118,9 +118,8 @@ class WechatController extends Controller
                     "name"=>'设备管理',
                     "sub_button"=>[
                         ['type'=>"view",'name'=>"我的水机","url"=>$baseUrl."home/index/index/user_sign/".$user_sign],
-                        ['type'=>"view",'name'=>"安装人员",'url'=>$baseUrl."home/index/index/user_sign/".$user_sign],
-                        ['type'=>"view",'name'=>"代缴费",'url'=>$baseUrl."home/index/index/user_sign/".$user_sign],
-
+                        ['type'=>"view",'name'=>"安装人员",'url'=>$baseUrl."home/users/login/user_sign/".$user_sign],
+                        ['type'=>"view",'name'=>"代缴费",'url'=>$baseUrl."home/shop/topup/user_sign/".$user_sign],
                     ]
                 ],
                 [

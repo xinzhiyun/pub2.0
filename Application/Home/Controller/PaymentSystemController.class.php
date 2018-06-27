@@ -793,7 +793,7 @@ class PaymentSystemController extends Controller
         //$input->SetGoods_tag($uid);
         // 支付成功的回调地址
         //$input->SetNotify_url("http://xinpin.dianqiukj.com/index.php/Home/Weixinpay/notify.html");
-        $input->SetNotify_url('http://demo.dianqiukj.com/index.php/Home/PaymentSystem/notify');
+        $input->SetNotify_url('http://hanpai2.dianqiukj.com/index.php/Home/PaymentSystem/notify');
         // 支付方式 JS-SDK 类型是：JSAPI
         $input->SetTrade_type("JSAPI");
         // 用户在公众号的唯一标识

@@ -101,7 +101,7 @@ class IndexController extends CommonController
                 $deviceInfo = M('Devices')
                     ->where('pub_devices.id='.$did)
                     ->join('pub_devices_statu ON pub_devices_statu.DeviceID=pub_devices.device_code')
-                    ->field('RawTDS,PureTDS,ReFlow,SumFlow,device_code')
+                    ->field('RawTDS,PureTDS,ReFlow,SumFlow,ReDay,SumDay,device_code')
                     ->find();
 
                 if(empty($deviceInfo)){ $this->redirect('/Home/Devices/manage'); }
