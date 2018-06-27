@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1" >
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" >
 
 <script src="__PUBLIC__/Home/js/jquery-1.8.3.min.js"></script>
 <!-- <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/mobileStyle.css"> -->
@@ -12,7 +12,11 @@
 <link rel="stylesheet" href="__PUBLIC__/Home/css/all-devices.css">
 <script src="__PUBLIC__/Admin/layui/layui.js"></script>
 <script src="__PUBLIC__/Home/js/jweixin-1.2.0.js"></script>	
+<!-- <script src="__PUBLIC__/Home/js/vconsole.min.js"></script>	 -->
 <title>绑定指引</title>
+<script>
+	// var vconsole = new VConsole();
+</script>
 <style>
 	body{
 		width: 100vw;
@@ -47,14 +51,14 @@
 	}
 </style>
 <script>	
+		//layuiHint弹框提示封装
+		function layuiHint(text){
+			layui.use('layer', function(){
+				var layer = layui.layer;
+				layer.msg(text);
+			});  
+		}
 		$(function(){
-			//layuiHint弹框提示封装
-			function layuiHint(text){
-			    layui.use('layer', function(){
-			        var layer = layui.layer;
-			        layer.msg(text);
-			    });  
-			}
 			$('#devices-list li').bind('click',function(){
 				var device_code = $(this).attr('title');
 				var _this = this;
@@ -146,12 +150,33 @@
 		    scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
 		    success: function (res) {
 		    	if (res.errMsg === "scanQRCode:ok"){
-		    		// 跳转到个人信息页面(先验证手机号有无水机订单)
-		    		location.href = '{{:U("Home/Users/personalinformation")}}' + '?machineNo=' + res.resultStr;
+					// 查询设备是否绑定
+		    		isBind(res.resultStr);
 			    }
 			}
 		});
 	});
+
+	//查询设备是否存在或是否被绑定
+	function isBind(machineNo){
+		$.ajax({
+			url: '{{:U("Home/Devices/isbind")}}',
+			data: {device_code: machineNo},
+			type: 'post',
+			success: function(res){
+				console.log('res: ',res);
+				if(res.status == 200){
+					// 跳转到个人信息页面(先验证手机号有无水机订单)
+					location.href = '{{:U("Home/Users/personalinformation")}}' + '?machineNo=' + machineNo;
+				}else{
+					layuiHint(res.msg);
+				}
+			},
+			error: function(err){
+				console.log('err: ',err);
+			}
+		})
+	}
 
 </script>
 
