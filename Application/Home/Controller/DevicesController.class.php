@@ -1,5 +1,6 @@
 <?php
 namespace Home\Controller;
+use Common\Tool\WeiXin;
 use Think\Controller;
 use \Org\Util\WeixinJssdk;
 use Think\Log;
@@ -29,8 +30,8 @@ class DevicesController extends CommonController
         $this->assign('currentDevices',$currentDevices);
 
         //调用微信JS-SDK类获取签名需要用到的数据
-        $weixin = new WeixinJssdk;
-        $signPackage = $weixin->getSignPackage();
+
+        $signPackage = WeiXin::getSignPackage();
         // 查询用户微信中的openid
         //$openId = $weixin->GetOpenid();
         // 调试用默认用户

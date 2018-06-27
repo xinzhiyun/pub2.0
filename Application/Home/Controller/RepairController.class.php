@@ -1,5 +1,6 @@
 <?php
 namespace Home\Controller;
+use Common\Tool\WeiXin;
 use Think\Controller;
 use \Org\Util\WeixinJssdk;
 /**
@@ -55,8 +56,8 @@ class RepairController extends CommonController
                 $this->error('一不小心服务器偷懒了~');
             }
         }else{
-            $weixin = new WeixinJssdk;
-            $signPackage = $weixin->getSignPackage();
+
+            $signPackage = WeiXin::getSignPackage();
 
             $this->assign('info',$signPackage);
 
@@ -110,8 +111,7 @@ class RepairController extends CommonController
 
         $path = './Public'.$path_info;
 
-        $weixin = new WeixinJssdk;
-        $ACCESS_TOKEN = $weixin->getAccessToken();
+        $ACCESS_TOKEN = WeiXin::getAccessToken();
 
         $url="https://api.weixin.qq.com/cgi-bin/media/get?access_token=$ACCESS_TOKEN&media_id=$paths";
         // $url = "http://img.taopic.com/uploads/allimg/140729/240450-140HZP45790.jpg";

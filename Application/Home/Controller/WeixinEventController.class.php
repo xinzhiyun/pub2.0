@@ -40,7 +40,7 @@ class WeixinEventController extends Controller
 		if($xml){
 		    // 转成php数组
 			$data = $this->toArray($xml);
-			//Log::write(json_encode($_SESSION['WX_CONFIG']), '微信');
+//			Log::write(json_encode($data), '微信');
 
             if(!empty($data['Event'])){
                 $Wechat = new WechatController; // 实例化微信信息类型

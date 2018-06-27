@@ -15,9 +15,22 @@ class Communal
         $res =  httpPost($url,['user'=>$user]);
         $res = json_decode($res);
         objtoArray($res);
-
         return $res;
-;    }
+    }
+
+    public static function loadWx($appid)
+    {
+        $url = "http://devicecloud.dianqiukj.com/api/Login/wxLogin";
+        $res =  httpPost($url,['appid'=>$appid]);
+        $res = json_decode($res);
+        objtoArray($res);
+        if(!empty($res['status']) && $res['status']==200){
+            self::setWX($res['data']);
+            self::setDB($res['data']);
+        }
+    }
+
+
     /**
      * 设置微信
      */

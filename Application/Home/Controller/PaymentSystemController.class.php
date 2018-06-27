@@ -1,7 +1,9 @@
 <?php
 namespace Home\Controller;
+use Common\Tool\Communal;
+use Common\Tool\GatewayClient;
+use Common\Tool\WeiXin;
 use Think\Controller;
-use \Org\Util\WeixinJssdk;
 use Think\Log;
 /**
  * 支付系统
@@ -791,7 +793,7 @@ class PaymentSystemController extends Controller
         //$input->SetGoods_tag($uid);
         // 支付成功的回调地址
         //$input->SetNotify_url("http://xinpin.dianqiukj.com/index.php/Home/Weixinpay/notify.html");
-        $input->SetNotify_url('http://hanpai2.dianqiukj.com/index.php/Home/PaymentSystem/notify');
+        $input->SetNotify_url('http://demo.dianqiukj.com/index.php/Home/PaymentSystem/notify');
         // 支付方式 JS-SDK 类型是：JSAPI
         $input->SetTrade_type("JSAPI");
         // 用户在公众号的唯一标识
@@ -879,43 +881,31 @@ class PaymentSystemController extends Controller
      */
     public function notify()
     {
-        // dump($_SESSION);die;
-        // 实例化微信JSSDK类对象
-        //$wxJSSDK = new \Org\Util\WeixinJssdk;
-        // 獲取微信微信ID
-        //$openId = $wxJSSDK->GetOpenid();
-        // 查询用户ID
-        //$uid = M('Users')->where("open_id='{$openId}'")->find()['id'];
-
         // 获取微信服务器返回的xml文档
         $xml=file_get_contents('php://input', 'r');
-        // file_put_contents('./wx_pay.txt',$xml."\r\n", FILE_APPEND);
-        //echo 1;die;
 //        $xml = '<xml><appid><![CDATA[wxae48f3bbcda86ab1]]></appid>
-//<attach><![CDATA[393068816013024114]]></attach>
+//<attach><![CDATA[2277188218161753]]></attach>
 //<bank_type><![CDATA[CFT]]></bank_type>
 //<cash_fee><![CDATA[1]]></cash_fee>
 //<fee_type><![CDATA[CNY]]></fee_type>
 //<is_subscribe><![CDATA[Y]]></is_subscribe>
 //<mch_id><![CDATA[1394894802]]></mch_id>
-//<nonce_str><![CDATA[e3i41m4g9x3xd92m7duyupvfwq84uz0w]]></nonce_str>
+//<nonce_str><![CDATA[lj0yz4bme0kn3fjl9vr8hryzso8sv44j]]></nonce_str>
 //<openid><![CDATA[oXwY4tygQ0kK3SCrYoK2pME_1b38]]></openid>
-//<out_trade_no><![CDATA[401974940811653114]]></out_trade_no>
+//<out_trade_no><![CDATA[6387647075157093]]></out_trade_no>
 //<result_code><![CDATA[SUCCESS]]></result_code>
 //<return_code><![CDATA[SUCCESS]]></return_code>
-//<sign><![CDATA[5E3A641DBAB0D9724259D80C61FB659B]]></sign>
-//<time_end><![CDATA[20180327192613]]></time_end>
+//<sign><![CDATA[4B810803FC2C5FF36237417AB9A0FFAA]]></sign>
+//<time_end><![CDATA[20180627101944]]></time_end>
 //<total_fee>1</total_fee>
 //<trade_type><![CDATA[JSAPI]]></trade_type>
-//<transaction_id><![CDATA[4200000054201803276779138017]]></transaction_id>
+//<transaction_id><![CDATA[4200000122201806271343087720]]></transaction_id>
 //</xml>';
-        
         if($xml){
             //解析微信返回数据数组格式
             $result = $this->notifyData($xml);
-            Log::write(json_encode($result), '微信回调');
-            //$uid = M('Users')->where("open_id='{$result['']}'")->find()['id'];
-            //file_put_contents('./wx_pay1.txt',$xml."\r\n", FILE_APPEND);
+//            Log::write($xml, '微信回调');
+//            Log::write(json_encode($result), '微信回调');
             // 如果订单号不为空
             if(!empty($result['out_trade_no'])){
                 $did = substr($result['out_trade_no'],15);
@@ -988,10 +978,10 @@ class PaymentSystemController extends Controller
                         foreach ($orderSetmealData as $value) {
 //                            dump($value);
                             // 查询设备当前剩余流量
-                            $devicesStatus = $devicesStatu->where($deviceCode)->find();
+//                            $devicesStatus = $devicesStatu->where($deviceCode)->find();
                             // $devicesStatuReFlow = $devicesStatu->where($deviceCode)->find()['reflow']-0;
-                            $devicesStatuReFlow = $devicesStatus['reflow'];
-                            $devicesStatuReDay = $devicesStatus['reday'];
+//                            $devicesStatuReFlow = $devicesStatus['reflow'];
+//                            $devicesStatuReDay = $devicesStatus['reday'];
                             // file_put_contents('套餐模式',var_export($value['remodel'], true),FILE_APPEND);
 //                             if ($value['remodel'] == 1) {
 //                                 // 充值后流量应剩余天数
@@ -1000,42 +990,37 @@ class PaymentSystemController extends Controller
 //                                 // 充值后流量应剩余流量
 //                                 $Flow['ReFlow'] = $devicesStatuReFlow + ($value['flow']*$value['goods_num']);
 //                             }
-                            switch ($value['remodel']) {
-                                case '0'://流量
-                                    $Flow['ReFlow'] = $devicesStatuReFlow + ($value['flow']*$value['goods_num']);
-                                    break;
-                                case '1'://时长
-                                    $Flow['ReDay'] =$devicesStatuReDay  + ($value['flow']*$value['goods_num']);
-                                    break;
-                                default:
-                                    # code...
-                                    break;
+                            $addNum = $value['flow']*$value['goods_num'];
+//                            switch ($value['remodel']) {
+//                                case '0'://流量
+//                                    $Flow['ReFlow'] = $devicesStatuReFlow + $addNum;
+//                                    break;
+//                                case '1'://时长
+//                                    $Flow['ReDay'] =$devicesStatuReDay  + $addNum;
+//                                    break;
+//                                default:
+//                                    # code...
+//                                    break;
+//                            }
+//                            $Flow['data_statu']=1;
+
+                            Log::write($deviceCode['DeviceID'].'---'.$addNum, '充值');
+
+                            if($value['remodel']==1){
+                                $add_res = GatewayClient::action('8',$deviceCode['DeviceID'],['mode'=>2,'val'=>$addNum]);
+                            }else{
+                                $add_res = GatewayClient::action('9',$deviceCode['DeviceID'],['mode'=>1,'val'=>$addNum]);
                             }
-                            $Flow['data_statu']=1;
 
-                            Log::write(json_encode($Flow), '更新devicesStatu');
+                            Log::write(json_encode($add_res),'设备充值的回调');
 
+                            if(!$add_res){
+                                Log::write(json_encode($add_res),'ERR : 设备充值的回调');
+                                exit('err');
+                            }
                             // 修改设备剩余流量
-                            $FlowRes = $devicesStatu->where($deviceCode)->save($Flow);
+//                            $FlowRes = $devicesStatu->where($deviceCode)->save($Flow);
 
-                            // file_put_contents('jfdsk',var_export($devicesStatu->_sql(), true),FILE_APPEND);
-                            // 准备发送指令
-                            // if(empty($Flow['ReDay'])){
-                            //     $msg = [
-                            //         'DeviceID'=>$deviceCode['DeviceID'], 
-                            //         'PackType'=>'SetData',
-                            //         'Vison'=>'0',
-                            //         'ReFlow'=>$Flow['ReFlow'],
-                            //     ];
-                            // } else {
-                            //     $msg = [
-                            //         'DeviceID'=>$deviceCode['DeviceID'], 
-                            //         'PackType'=>'SetData',
-                            //         'Vison'=>'0',
-                            //         'ReDay'=>$Flow['ReDay'],
-                            //     ];
-                            // }
-                            // dump($msg);die;
 
                             // 写充值流水
                             // 订单编号
@@ -1098,9 +1083,14 @@ class PaymentSystemController extends Controller
                         // 执行事务
                         $orders->commit();
 
-                        $sc=A("Api/Action");
 
-                        $sc->sysnc($deviceCode['DeviceID']);
+                        if(empty($Flow['ReFlow'])){
+
+                        }
+
+                        //$sc=A("Api/Action");
+
+                        //$sc->sysnc($deviceCode['DeviceID']);
 
                     }else{
                         // 事务回滚
@@ -1131,19 +1121,16 @@ class PaymentSystemController extends Controller
         // 转成php数组
         $data=$this->toArray($xml);
 
-        // file_put_contents('./wx_notify1.txt','data:'.$data, FILE_APPEND);    
-        // file_put_contents('./wx_notify2.txt','123:'.$data['out_trade_no'], FILE_APPEND);
-        // file_put_contents('./wx_notify3.txt','456:'.$data['sign'], FILE_APPEND); 
+        Communal::loadWx($data['appid']);
 
         // 保存原sign
         $dataSign=$data['sign'];
 
         // sign不参与签名
         unset($data['sign']);
-
         // 生成签名
         $sign=$this->makeSign($data);
-        // file_put_contents('./wx_notify.txt','原签: '.$dataSign.'现签：'.$sign, FILE_APPEND);  
+        // file_put_contents('./wx_notify.txt','原签: '.$dataSign.'现签：'.$sign, FILE_APPEND);
         // 判断签名是否正确  判断支付状态
         if ($sign==$dataSign && $data['return_code']=='SUCCESS' && $data['result_code']=='SUCCESS') {
 
@@ -1186,7 +1173,7 @@ class PaymentSystemController extends Controller
         //签名步骤二：在string后加入KEY
         $config=$this->config;
 //        $string_sign_temp=$string_a."&key=CAA5EAE2CE5AC44A3F8930E6F127B423";
-        $string_sign_temp=$string_a."&key=36d04a9d74392c727b1a9bf97a7bcbac";
+        $string_sign_temp=$string_a."&key=".WeiXin::wx_sdk()->KEY;
         //签名步骤三：MD5加密
         $sign = md5($string_sign_temp);
         // 签名步骤四：所有字符转为大写
@@ -1202,6 +1189,8 @@ class PaymentSystemController extends Controller
      */
     public static function addStatu($orderSetmeal,$order_id)
     {
+        dump('停止使用');
+        exit;
         // 查询数据库当前量
         $device_code = $orderSetmeal
             ->alias('os')

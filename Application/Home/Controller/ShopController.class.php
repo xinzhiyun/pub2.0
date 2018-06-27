@@ -1,5 +1,6 @@
 <?php
 namespace Home\Controller;
+use Common\Tool\WeiXin;
 use Think\Controller;
 use \Org\Util\WeixinJssdk;
 
@@ -107,16 +108,13 @@ class ShopController extends CommonController
         }
 
         //调用微信JS-SDK类获取签名需要用到的数据
-        $weixin = new WeixinJssdk;
-        $signPackage = $weixin->getSignPackage();
 
-        // 查询用户微信中的openid
-        //$openId = $weixin->GetOpenid();
+        $signPackage =  WeiXin::getSignPackage();
+
         // 调试用默认用户
         $openId = $_SESSION['homeuser']['open_id'];
         //分配数据
-        //
-        // dump($signPackage);exit;
+
         $this->assign('info',$signPackage);
         $this->assign('openId',$openId);
         if ($dcode !='') {
@@ -368,10 +366,10 @@ class ShopController extends CommonController
             $this->assign('totalNum',$totalNum);
 
             //调用微信JS-SDK类获取签名需要用到的数据
-            $weixin = new WeixinJssdk;
-            $signPackage = $weixin->getSignPackage();
+
+            $signPackage = WeiXin::getSignPackage();
             // 查询用户微信中的openid
-            $openId = $weixin->GetOpenid();
+            $openId = WeiXin::GetOpenid();
 
             //分配数据
             $this->assign('info',$signPackage);

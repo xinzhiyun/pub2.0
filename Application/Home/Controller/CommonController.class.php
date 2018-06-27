@@ -3,8 +3,6 @@ namespace Home\Controller;
 use Common\Tool\Communal;
 use Common\Tool\WeiXin;
 use Think\Controller;
-use \Org\Util\WeixinJssdk;
-use Home\Controller\WechatController;
 /**
  * 前共控制器
  * 前台控制器除login外必须继承我
@@ -13,11 +11,16 @@ use Home\Controller\WechatController;
 
 class CommonController extends Controller 
 {
-    public function __construct()
+	/**
+     * 初始化
+     * @author 吴智彬 <519002008@qq.com>
+     */
+    public function _initialize()
     {
         if(!empty($_GET['user_sign'])){
-            unset($_SESSION['DB_CONFIG']);
+            //unset($_SESSION['DB_CONFIG']);
             $res = Communal::login($_GET['user_sign']);
+
             if(!empty($res) && $res['status']==200){
                 Communal::setDB($res['data']);
                 Communal::setWX($res['data']);
@@ -26,14 +29,6 @@ class CommonController extends Controller
             }
         }
 
-        parent::__construct();
-    }
-	/**
-     * 初始化
-     * @author 吴智彬 <519002008@qq.com>
-     */
-    public function _initialize()
-    {
         // 获取用户信息写入缓存
         if(empty($_SESSION['homeuser'])){
 
@@ -47,7 +42,6 @@ class CommonController extends Controller
             session('weixin',$weixinInfo);
             // 查询用户信息
             $info = M('Users')->where("open_id='{$openId}'")->find();
-            
             // 判断用户是否存在
             if($info){
                 // 用户当前设备

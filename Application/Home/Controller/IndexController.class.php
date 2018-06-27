@@ -5,7 +5,7 @@ use Common\Tool\GatewayClient;
 use Think\Controller;
 class IndexController extends CommonController 
 {
-    public function index()
+    public function indexx()
     {
     	$userInfo = $_SESSION['homeuser'];
 
@@ -83,8 +83,8 @@ class IndexController extends CommonController
         $this->display();
     }
 
-    
-    public function indexWebsocketNew()
+
+    public function index()
     {
         $userInfo = $_SESSION['homeuser'];
 
@@ -127,7 +127,7 @@ class IndexController extends CommonController
                 // 分配数据到模板
                 $this->assign($assign);
                 // 显示模板
-                $this->display();
+                $this->display('indexWebsocketNew');
             }
 
 

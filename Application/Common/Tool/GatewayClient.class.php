@@ -70,7 +70,7 @@ class GatewayClient
     {
 
         $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP) or die("Could not create  socket\n");
-        socket_set_option($socket,SOL_SOCKET,SO_RCVTIMEO,array("sec"=> 3, "usec"=> 0 ) );
+        socket_set_option($socket,SOL_SOCKET,SO_RCVTIMEO,array("sec"=> 5, "usec"=> 0 ) );
         $connection = socket_connect($socket, self::HOST, self::PORT) or die("Could not connet server\n");
         socket_write($socket, $message) or die("Write failed\n");
 
