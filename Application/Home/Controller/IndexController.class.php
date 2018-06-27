@@ -109,6 +109,7 @@ class IndexController extends CommonController
                 $code = M('devices')->where("id={$_SESSION['homeuser']['did']}")->find();
 
                 $status = M('devices_statu')->where("DeviceID='{$code['device_code']}'")->find();
+                unset($status['loaction']);
                 $type = M('device_type')->where("id={$code['type_id']}")->find();
                 unset($type['id'], $type['typename'], $type['addtime']);
                 $sum = array_filter($type);
