@@ -687,8 +687,8 @@ $(function(){
 					// 确定
 					deviceAction({
 						mode: 5,	// 复位滤芯
-						// deviceId: data.deviceid,
-						deviceId: '868575028072504',
+						deviceId: data.deviceid,
+						// deviceId: '868575028072504',
 						filter: filterNumber+1
 					}, function(res){
 						noticeFn({text: res.msg});

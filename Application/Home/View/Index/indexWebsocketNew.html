@@ -135,7 +135,7 @@
 					<a href="javascript:;" class="clickBtn">
 						<p class="iconfont icon-kaiguan"></p>
 						<span class="switchText" 
-						v-text='switchText == 0 || dataList.DeviceStause == 6 || dataList.DeviceStause == 7 ? "开机" : "关机"'>开机</span>
+						v-text='dataList.DeviceStause == 6 || dataList.DeviceStause == 7 || switchText == 0 ? "开机" : "关机"'>开机</span>
 					</a>
 				</li>
 				<li @click='wash(3)'>
@@ -195,6 +195,7 @@
 		console.log('devicestause: ',devicestause);
 		home.leasingmode = leasingmode ? leasingmode : 0;
 		home.statusText = devicestause ? devicestause : 0;
+		home.dataList.DeviceStause = devicestause;
 		// 显示用的数据
         // filter.dataList.push({
         //     name: filterInfo[i].filtername,                    // 滤芯名称
