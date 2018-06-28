@@ -335,9 +335,9 @@ $(function(){
                     ReFlowFilter = parseInt(dataList['ReFlowFilter'+(i+1)]) || 0;
                     ReDayFilter = parseInt(dataList['ReDayFilter'+(i+1)]) || 0;
                     
-                    var persent1 = ReFlowFilter/parseInt(Number(ReFlowFilter) + Number(dataList.SumFlow))*100;
+                    var persent1 = ReFlowFilter/parseInt(data.filterInfo[i].flowlife)*100;
                     //按时间计算百分比值
-                    var persent2 = ReDayFilter/parseInt(Number(ReDayFilter) + Number(dataList.SumDay))*100;
+                    var persent2 = ReDayFilter/parseInt(data.filterInfo[i].timelife)*100;
                     persent1 = persent1 > 100 ? 100 : persent1;
                     persent2 = persent2 > 100 ? 100 : persent2;
 
@@ -359,7 +359,7 @@ $(function(){
                             '</div>'+
                             '<span style="display:block;text-align:center">还剩'+persent2.toFixed(2)+'%</span>'+
                             '</td>'+
-                            '<td>'+ ReDayFilter+'/'+(Number(ReDayFilter)+Number(dataList.SumDay)) +'</td>'+
+                            '<td>'+ ReDayFilter+'/'+data.filterInfo[i].timelife +'</td>'+
                             '<td>'+'<button class="btn btn-info clickBtn washBtn" name="'+ el.filtername+'" onclick="resetFilter('+ (i+1) +',this)">复位</button><input type="hidden" value='+i+'></td>'+
                             '</tr>';
 
@@ -376,7 +376,7 @@ $(function(){
                             '</div>'+
                             '<span style="display:block;text-align:center">还剩'+persent1.toFixed(2)+'%</span>'+
                             '</td>'+
-                            '<td>'+ ReFlowFilter+'/'+(Number(ReFlowFilter)+Number(dataList.SumFlow)) +'</td>'+
+                            '<td>'+ ReFlowFilter+'/'+data.filterInfo[i].flowlife +'</td>'+
                             '<td>'+'<button class="btn btn-info clickBtn washBtn" name="'+ el.filtername +'" onclick="resetFilter('+ (i+1) +',this)">复位</button><input type="hidden" value='+i+'></td>'+
                             '</tr>';
 
@@ -393,7 +393,7 @@ $(function(){
                             '<span style="display:block;text-align:center">还剩'+width.toFixed(2)+'%</span>'+
                             '</td>'+
                             '<td>'+(_bool?ReFlowFilter:ReDayFilter)+'/'+
-                            +(_bool?Number(ReFlowFilter)+Number(dataList.SumFlow):Number(ReDayFilter)+Number(dataList.SumDay))
+                            +(_bool ? data.filterInfo[i].flowlife : data.filterInfo[i].timelife)
                             +'</td>'+
                             '<td><button class="btn btn-info clickBtn washBtn" name="'+ el.filtername+'" onclick="resetFilter('+ (i+1) +',this)">复位</button><input type="hidden" value='+i+'></td>'+
                             '</tr>';

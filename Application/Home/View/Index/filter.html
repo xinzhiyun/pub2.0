@@ -397,7 +397,7 @@ $(function(){
 			
 				if(parseInt(dataList['ReDayFilter1']) > 0 && parseInt(dataList['ReFlowFilter1']) <= 0 ){
 					//按时间
-					var percent = ((dataList['ReDayFilter'+(i+1)]/(dataList['ReDayFilter'+(i+1)]+Number(dataList.SumDay)))*100).toFixed(0);
+					var percent = ((dataList['ReDayFilter'+(i+1)]/res[i].timelife)*100).toFixed(0);
 					// 遍历膜的详情, 不存在则不遍历
 					if(res[i].filtername){
 
@@ -417,7 +417,6 @@ $(function(){
 					//滤芯简介
 					if(res[i].introduce){
 
-						res[i].timelife = Number(dataList['ReDayFilter'+(i+1)]) + Number(dataList.SumDay);
 						dataList['ReDayFilter'+(i+1)] = !dataList['ReDayFilter'+(i+1)] ? 0 : dataList['ReDayFilter'+(i+1)];
 
 						lvxinIntroduceHTML += '<div>'+
@@ -437,7 +436,7 @@ $(function(){
 					}
 				}else if(parseInt(dataList['ReFlowFilter1'])>0 && parseInt(dataList['ReDayFilter1'])<=0){
 					//流量模式
-					var percent = ((dataList['ReFlowFilter'+(i+1)]/(dataList['ReFlowFilter'+(i+1)]+Number(dataList.SumFlow)))*100).toFixed(0);
+					var percent = ((dataList['ReFlowFilter'+(i+1)]/res[i].flowlife)*100).toFixed(0);
 					 // 遍历滤芯详情, 不存在则不遍历
 					if(res[i].filtername){
 						moHTML += '<li class="_padding">'+
@@ -455,7 +454,6 @@ $(function(){
 
 					//滤芯简介
 					if(res[i].introduce && data.ReFlowFilter+[i+1]){
-						res[i].flowlife = Number(dataList['ReFlowFilter'+(i+1)]) + Number(dataList.SumFlow);
 						dataList['ReFlowFilter'+(i+1)] = !dataList['ReFlowFilter'+(i+1)] ? 0 : dataList['ReFlowFilter'+(i+1)];
 
 						lvxinIntroduceHTML += '<div>'+
@@ -484,13 +482,13 @@ $(function(){
 							moHTML += '<li class="_padding">'+
 								'<p><span class="">'+ res[i].filtername +
 								'</span><span class="_float_right">'+
-								((parseInt(dataList['ReDayFilter'+(i+1)])/(dataList['ReDayFilter'+(i+1)] + Number(dataList.SumDay)))*100).toFixed(0)
+								((parseInt(dataList['ReDayFilter'+(i+1)])/res[i].timelife)*100).toFixed(0)
 								+'%</span></p>'+
 								'<p class="_text_align">'+
 									'<div class="progress _progress _width">'+
 									   '<div class="checkbox"><span class="chBox" name='+ 'filter'+i +'></span></div>'+
 									  '<div class="progress-bar progress-bar-striped" role="progressbar" style="width:'+
-									 ((parseInt(dataList['ReDayFilter'+(i+1)])/(dataList['ReDayFilter'+(i+1)] + Number(dataList.SumDay)))*100).toFixed(0) +
+									 ((parseInt(dataList['ReDayFilter'+(i+1)])/res[i].timelife)*100).toFixed(0) +
 									  '%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>'+
 									'</div>'+
 								'</p>'+
@@ -499,7 +497,6 @@ $(function(){
 
 						//滤芯简介
 						if(res[i].introduce){
-							res[i].timelife = Number(dataList['ReDayFilter'+(i+1)]) + Number(dataList.SumDay);
 							res[i]['redayfilter'+(i+1)] = !res[i]['redayfilter'+(i+1)] ? 0 : res[i]['redayfilter'+(i+1)];
 
 							lvxinIntroduceHTML += '<div>'+
@@ -524,13 +521,13 @@ $(function(){
 							moHTML += '<li class="_padding">'+
 								'<p><span class="">'+ res[i].filtername +
 								'</span><span class="_float_right">'+
-							   ((parseInt(dataList['ReFlowFilter'+(i+1)])/(dataList['ReFlowFilter'+(i+1)] + Number(dataList.SumFlow)))*100).toFixed(0)
+							   ((parseInt(dataList['ReFlowFilter'+(i+1)])/res[i].flowlife)*100).toFixed(0)
 								+'%</span></p>'+
 								'<p class="_text_align">'+
 									'<div class="progress _progress _width">'+
 									   '<div class="checkbox"><span class="chBox" name='+ 'filter'+i +'></span></div>'+
 									  '<div class="progress-bar progress-bar-striped" role="progressbar" style="width:'+
-									 ((parseInt(dataList['ReFlowFilter'+(i+1)])/(dataList['ReFlowFilter'+(i+1)] + Number(dataList.SumFlow)))*100).toFixed(0) +
+									 ((parseInt(dataList['ReFlowFilter'+(i+1)])/res[i].flowlife)*100).toFixed(0) +
 									  '%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>'+
 									'</div>'+
 								'</p>'+
@@ -539,7 +536,6 @@ $(function(){
 
 						//滤芯简介
 						if(res[i].introduce){
-							res[i].flowlife = Number(dataList['ReFlowFilter'+(i+1)]) + Number(dataList.SumFlow);
 							res[i].balancaflow = !res[i].balancaflow ? 0 : res[i].balancaflow;
 
 							lvxinIntroduceHTML += '<div>'+
@@ -575,7 +571,6 @@ $(function(){
 						'</li>';
 
 						//滤芯简介
-						res[i].timelife = Number(dataList['ReDayFilter'+(i+1)]) + Number(dataList.SumDay);
 						data['redayfilter'+(i+1)] = !data['redayfilter'+(i+1)] ? 0 : data['redayfilter'+(i+1)];
 						lvxinIntroduceHTML += '<div>'+
 							'<h3>'+
@@ -606,7 +601,6 @@ $(function(){
 						'</li>';
 
 						//滤芯简介
-						res[i].flowlife = Number(dataList['ReFlowFilter'+(i+1)]) + Number(dataList.SumFlow);
 						data['reflowfilter'+(i+1)] = !data['reflowfilter'+(i+1)] ? 0 : data['reflowfilter'+(i+1)];
 						lvxinIntroduceHTML += '<div>'+
 							'<h3>'+
@@ -663,7 +657,7 @@ $(function(){
 
 		}
 		
-	}	
+	}
 		
 	//页面关闭后关闭websoket;
 	window.onunload=function(){

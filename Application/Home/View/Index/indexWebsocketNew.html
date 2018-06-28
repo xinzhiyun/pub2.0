@@ -9,7 +9,10 @@
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfont.css">
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/iconfontHome.css">
 	<script src="__PUBLIC__/Home/js/vue.min.js"></script>
-	<script src="__PUBLIC__/Home/js/vconsole.min.js"></script>
+	<!-- <script src="__PUBLIC__/Home/js/vconsole.min.js"></script> -->
+	<script>
+			// var vconsole = new VConsole();
+	</script>
 </head>
 <body>
 	<div class="content home" v-cloak :leasingmode='leasingmode' :statusText='statusText'>
@@ -182,7 +185,7 @@
 		var liSize = 60, li = '', deg = 360/60, delay = 1/60;
 	    for(var i=0; i<liSize; i++) {
 			var index = i >= 49 ? "none" : "";
-			li += '<li class="circleli" style="display:'+ index +';transform: rotate('+ deg*i +'deg) translateY(-10px);animation-delay:'+
+			li += '<li class="circleli" style="display:'+ index +';transform: translate3d(0,0,0) rotate('+ deg*i +'deg) translateY(-10px);animation-delay:'+
 			delay*i +'s"></li>';
 	    }
 	    $('.zh-circle').html(li);
@@ -190,12 +193,12 @@
 	</script>
 	<script>
 		var leasingmode = '{{$leasingmode}}'; 		// 租赁模式
-		var devicestause = '{{$devicestause}}';	// 设备状态
+		var devicestause = '{{$devicestause}}';		// 设备状态
 		console.log('leasingmode: ',leasingmode);
 		console.log('devicestause: ',devicestause);
 		home.leasingmode = leasingmode ? leasingmode : 0;
-		home.statusText = devicestause ? devicestause : 0;
-		home.dataList.DeviceStause = devicestause;
+		home.switchText = devicestause == 6 || devicestause == 7 ? 0 : 1;	// 开关机状态
+		home.statusText = devicestause ? devicestause : 0;					// 水机状态
 		// 显示用的数据
         // filter.dataList.push({
         //     name: filterInfo[i].filtername,                    // 滤芯名称
