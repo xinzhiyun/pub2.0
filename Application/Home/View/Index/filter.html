@@ -359,8 +359,8 @@ $(function(){
 	websoket.onopen=function(){
 		//包数据
 		ajson={
-			// "DeviceID":deviceId,
-			"DeviceID": '868575028072504',
+			"DeviceID":deviceId,
+			// "DeviceID": '868575028072504',
 			"PackType":"login",
 			"Vison":0,
 		};
@@ -378,8 +378,8 @@ $(function(){
 			// 绑定websocket链接
 			bindWebsocket({
 				client_id: client_id,
-				// deviceID: deviceId,
-				deviceID: '868575028072504',
+				deviceID: deviceId,
+				// deviceID: '868575028072504',
 				token: ''
 			}, function(res){
 				if(res.status != 200){
