@@ -497,7 +497,7 @@ $(function(){
                     thisT.html("开机中");
                     deviceAction({
                         mode: 1,
-                        deviceID: deviceId
+                        deviceId: deviceId
                     },function(res){
                         console.log('power_res: ',res);
                         if(res.status == 200){
